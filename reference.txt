@@ -1,3 +1,20 @@
+@phdthesis{Zhai2002, 
+	author = {翟海峰}, 
+	title = {混杂系统分析与控制设计研究}, 
+	school = {浙江大学}, year = {2002}
+}
+[1]翟海峰. 混杂系统分析与控制设计研究[D].浙江大学,2002.
+
+
+@conference{KZLL199809001044, 
+	author = {孙振东 & 郑大钟}, 
+	title = {关于切换系统的一个例子}, 
+	booktitle = {1998年中国控制会议论文集}, 
+	year = {1998}, editor = , 
+	pages = {212-215}, publisher = {国防大学出版社} 
+}
+[1]孙振东,郑大钟. 关于切换系统的一个例子[C]//中国自动化学会控制理论专业委员会.1998年中国控制会议论文集.国防大学出版社,1998:4.
+
 @article{Abou-Kandil:1995,
   title={{On the solution of discrete-time Markovian jump linear quadratic control problems}},
   author={Abou-Kandil, H.  and  Freiling, G.  and  Jank, G. },
@@ -7,8 +24,6 @@
   pages={765-768},
   year={1995},
 }
-
-
 
 @article{Balenzuela:2022,
 title = {{Parameter estimation for jump Markov linear systems}},
