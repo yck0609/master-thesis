@@ -5,7 +5,6 @@
 }
 [1]翟海峰. 混杂系统分析与控制设计研究[D].浙江大学,2002.
 
-
 @conference{KZLL199809001044, 
 	author = {孙振东 & 郑大钟}, 
 	title = {关于切换系统的一个例子}, 
@@ -13,7 +12,7 @@
 	year = {1998}, editor = , 
 	pages = {212-215}, publisher = {国防大学出版社} 
 }
-[1]孙振东,郑大钟. 关于切换系统的一个例子[C]//中国自动化学会控制理论专业委员会.1998年中国控制会议论文集.国防大学出版社,1998:4.
+[2]孙振东,郑大钟. 关于切换系统的一个例子[C]//中国自动化学会控制理论专业委员会.1998年中国控制会议论文集.国防大学出版社,1998:4.
 
 @article{Abou-Kandil:1995,
   title={{On the solution of discrete-time Markovian jump linear quadratic control problems}},
@@ -24,6 +23,8 @@
   pages={765-768},
   year={1995},
 }
+
+[3]Abou-Kandil H, Freiling G, Jank G. On the solution of discrete-time Markovian jump linear quadratic control problems[J]. Automatica, 1995, 31(5): 765-768.
 
 @article{Balenzuela:2022,
 title = {{Parameter estimation for jump Markov linear systems}},
@@ -138,6 +139,8 @@ doi = {10.1177/0142331218765610},
   year={1988},
   organization={IEEE}
 }
+
+[4]Chizeck H J, Ji Y. Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time[C]//Proceedings of the 27th IEEE Conference on Decision and Control. IEEE, 1988: 1989-1993.
 
 @article{Costa:1995,
   title={{Discrete-time LQ-optimal control problems for infinite Markov jump parameter systems}},
