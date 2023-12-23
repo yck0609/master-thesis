@@ -14,8 +14,53 @@
 	pages = {212-215}, publisher = {国防大学出版社} 
 }
 
-[3] Chizeck H J, Ji Y. Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time[C]//Proceedings of the 27th IEEE Conference on Decision and Control. IEEE, 1988: 1989-1993.
+[3] Ji Y, Chizeck H J. Controllability, observability and discrete-time Markovian jump linear quadratic control[J]. International Journal of Control, 1988, 48(2): 481-498.
+@article{Chizeck:1988,
+  title={{Controllability, observability and discrete-time Markovian jump linear quadratic control}},
+  author={Ji, Yuandong and Chizeck, HOWARD J},
+  journal={International Journal of Control},
+  volume={48},
+  number={2},
+  pages={481--498},
+  year={1988},
+  publisher={Taylor \& Francis}
+}
 
+[4]  Sworder D. Feedback control of a class of linear systems with jump parameters[J]. IEEE Transactions on Automatic Control, 1969, 14(1): 9-14.
+@article{Sworder:1969,
+  title={{Feedback control of a class of linear systems with jump parameters}},
+  author={Sworder, David},
+  journal={IEEE Transactions on Automatic Control},
+  volume={14},
+  number={1},
+  pages={9--14},
+  year={1969},
+  publisher={IEEE}
+}
+
+[5] Blair W P, Sworder D. Feedback control of a class of linear discrete systems with jump parameters and quadratic cost criteria[J]. International Journal of Control, 1975, 21(5): 833-841.
+@article{Sworder:1975,
+  title={{Feedback control of a class of linear discrete systems with jump parameters and quadratic cost criteria}},
+  author={Blair , WP and Sworder, DD},
+  journal={International Journal of Control},
+  volume={21},
+  number={5},
+  pages={833--841},
+  year={1975},
+  publisher={Taylor \& Francis}
+}
+
+[6] Sworder D, Rogers R. An LQ-solution to a control problem associated with a solar thermal central receiver[J]. IEEE Transactions on Automatic Control, 1983, 28(10): 971-978.
+@article{Sworder:1983,
+  title={{An LQ-solution to a control problem associated with a solar thermal central receiver}},
+  author={Sworder, DD and Rogers, RO},
+  journal={IEEE Transactions on Automatic Control},
+  volume={28},
+  pages={971--978},
+  year={1983}
+}
+
+[7] Chizeck H J, Ji Y. Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time[C]//Proceedings of the 27th IEEE Conference on Decision and Control. IEEE, 1988: 1989-1993.
 @inproceedings{Chizeck:1988-1,
   title={{Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time}},
   author={Chizeck, H Ji and Ji, Y},
@@ -25,7 +70,7 @@
   organization={IEEE}
 }
 
-[4] Abou-Kandil H, Freiling G, Jank G. On the solution of discrete-time Markovian jump linear quadratic control problems[J]. Automatica, 1995, 31(5): 765-768.
+[8] Abou-Kandil H, Freiling G, Jank G. On the solution of discrete-time Markovian jump linear quadratic control problems[J]. Automatica, 1995, 31(5): 765-768.
 @article{Abou-Kandil:1995,
   title={{On the solution of discrete-time Markovian jump linear quadratic control problems}},
   author={Abou-Kandil, H.  and  Freiling, G.  and  Jank, G. },
@@ -36,7 +81,7 @@
   year={1995},
 }
 
-[5] Fang Y, Loparo K A. Stochastic stability of jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(7): 1204-1208.
+[9] Fang Y, Loparo K A. Stochastic stability of jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(7): 1204-1208.
 @article{Fang:2002,
   title={{Stochastic stability of jump linear systems}},
   author={Fang, Y.  and  Loparo, K. A.},
@@ -47,7 +92,7 @@
   year={2002},
 }
 
-[6] Fang Y, Loparo K A. Stabilization of continuous-time jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(10): 1590-1603.
+[10] Fang Y, Loparo K A. Stabilization of continuous-time jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(10): 1590-1603.
 @article{Fang:2002-1,
   title={{Stabilization of continuous-time jump linear systems}},
   author={{}Fang, Y.  and  Loparo, K. A.},
@@ -58,7 +103,7 @@
   year={2002},
 }
 
-[7] Hou Z, Luo J, Shi P, et al. Stochastic stability of Ito differential equations with semi-Markovian jump parameters[J]. IEEE Transactions on Automatic Control, 2006, 51(8): 1383-1387.
+[11] Hou Z, Luo J, Shi P, et al. Stochastic stability of Ito differential equations with semi-Markovian jump parameters[J]. IEEE Transactions on Automatic Control, 2006, 51(8): 1383-1387.
 @article{Hou:2006,
   title={{Stochastic stability of Ito differential equations with semi-Markovian jump parameters}},
   author={Zhenting Hou and Jiaowan Luo and Peng Shi and Sing Kiong Nguang},
@@ -68,7 +113,7 @@
   pages={1383-1387}
 }
 
-[8] Li F, Wu L, Shi P. Stochastic stability of semi‐Markovian jump systems with mode‐dependent delays[J]. International Journal of Robust and Nonlinear Control, 2014, 24(18): 3317-3330.
+[12] Li F, Wu L, Shi P. Stochastic stability of semi‐Markovian jump systems with mode‐dependent delays[J]. International Journal of Robust and Nonlinear Control, 2014, 24(18): 3317-3330.
 @article{Li:2014,
   title={{Stochastic stability of semi-Markovian jump systems with mode-dependent delays}},
   author={Li, Fanbiao and Wu, Ligang and Shi, Peng},
@@ -80,7 +125,7 @@
   publisher={Wiley Online Library}
 }
 
-[9] Wu X, Shi P, Tang Y, et al. Stability analysis of semi-Markov jump stochastic nonlinear systems[J]. IEEE Transactions on Automatic Control, 2021, 67(4): 2084-2091.
+[13] Wu X, Shi P, Tang Y, et al. Stability analysis of semi-Markov jump stochastic nonlinear systems[J]. IEEE Transactions on Automatic Control, 2021, 67(4): 2084-2091.
 @article{Wu:2022,
   author={Wu, Xiaotai and Shi, Peng and Tang, Yang and Mao, Shuai and Qian, Feng},
   journal={IEEE Transactions on Automatic Control}, 
@@ -91,7 +136,31 @@
   pages={2084-2091},
 }
 
-[10] Sun Q, Lim C C, Shi P, et al. Design and stability of moving horizon estimator for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2018, 64(3): 1109-1124.
+[14] Costa O L V. Linear minimum mean square error estimation for discrete-time Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 1994, 39(8): 1685-1689.
+@article{Costa:1994,
+  title={Linear minimum mean square error estimation for discrete-time Markovian jump linear systems},
+  author={Costa, OL do V},
+  journal={IEEE Transactions on Automatic Control},
+  volume={39},
+  number={8},
+  pages={1685--1689},
+  year={1994},
+  publisher={IEEE}
+}
+
+[15] Costa O L V, Guerra S. Stationary filter for linear minimum mean square error estimator of discrete-time Markovian jump systems[J]. IEEE Transactions on Automatic Control, 2002, 47(8): 1351-1356.
+@article{Costa:2002,
+  title={Stationary filter for linear minimum mean square error estimator of discrete-time Markovian jump systems},
+  author={Costa, Oswaldo LV and Guerra, Susset},
+  journal={IEEE Transactions on Automatic Control},
+  volume={47},
+  number={8},
+  pages={1351--1356},
+  year={2002},
+  publisher={IEEE}
+}
+
+[14] Sun Q, Lim C C, Shi P, et al. Design and stability of moving horizon estimator for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2018, 64(3): 1109-1124.
 @article{Sun:2018,
   title={{Design and stability of moving horizon estimator for Markov jump linear systems}},
   author={Sun, Qing and Lim, Cheng-Chew and Shi, Peng and Liu, Fei},
@@ -103,7 +172,7 @@
   publisher={IEEE}
 }
 
-[11] Balenzuela M P, Wills A G, Renton C, et al. Parameter estimation for jump Markov linear systems[J]. Automatica, 2022, 135: 109949.
+[15] Balenzuela M P, Wills A G, Renton C, et al. Parameter estimation for jump Markov linear systems[J]. Automatica, 2022, 135: 109949.
 @article{Balenzuela:2022,
 title = {{Parameter estimation for jump Markov linear systems}},
 journal = {Automatica},
@@ -215,6 +284,238 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   year={2006}
 }
 
+[23] Hou Z S, Wang Z. From model-based control to data-driven control: Survey, classification and perspective[J]. Information Sciences, 2013, 235: 3-35.
+@article{Hou:2013,
+  title={From model-based control to data-driven control: Survey, classification and perspective},
+  author={Hou, Zhong-Sheng and Wang, Zhuo},
+  journal={Information Sciences},
+  volume={235},
+  pages={3--35},
+  year={2013},
+  publisher={Elsevier}
+}
+
+[27] Ji Y, Chizeck H J. Jump linear quadratic Gaussian control in continuous time[C]//1991 American Control Conference. IEEE, 1991: 2676-2681.
+@inproceedings{Ji:1991,
+  title={Jump linear quadratic Gaussian control in continuous time},
+  author={Ji, Yuandong and Chizeck, Howard J},
+  booktitle={1991 American Control Conference},
+  pages={2676--2681},
+  year={1991},
+  organization={IEEE}
+}
+
+[28] Costa O L V, Tuesta E F. Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 2003, 48(10): 1836-1842.
+@article{Costa:2003,
+  title={{Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems}},
+  author={Costa, Oswaldo Luiz Valle and Tuesta, Esteban Fern{\'a}ndez},
+  journal={IEEE Transactions on Automatic Control},
+  volume={48},
+  number={10},
+  pages={1836--1842},
+  year={2003},
+  publisher={IEEE}
+}
+
+[29] Costa O L V, Paulo W L. Indefinite quadratic with linear costs optimal control of Markov jump with multiplicative noise systems[J]. Automatica, 2007, 43(4): 587-597.
+@article{Costa:2007,
+  title={{Indefinite quadratic with linear costs optimal control of Markov jump with multiplicative noise systems}},
+  author={Costa, Oswaldo Luiz Valle and de Paulo, Wanderlei L},
+  journal={Automatica},
+  volume={43},
+  number={4},
+  pages={587--597},
+  year={2007},
+  publisher={Elsevier}
+}
+
+[30] Matei I, Martins N C, Baras J S. Optimal linear quadratic regulator for Markovian jump linear systems, in the presence of one time-step delayed mode observations[J]. IFAC Proceedings Volumes, 2008, 41(2): 8056-8061.
+@article{Matei:2008,
+  title={{Optimal linear quadratic regulator for Markovian jump linear systems in the presence of one time-step delayed mode observations}},
+  author = {Matei, Ion and Martins, Nuno and Baras, John},
+  journal={IFAC Proceedings Volumes},
+  volume={41},
+  number={2},
+  pages={8056-8061},
+  year={2008},
+}
+
+[31] Zhang L, Boukas E K, Lam J. Analysis and synthesis of Markov jump linear systems with time-varying delays and partially known transition probabilities[J]. IEEE Transactions on Automatic Control, 2008, 53(10): 2458-2464.
+@article{zhang:2008,
+  title={{Analysis and synthesis of Markov jump linear systems with time-varying delays and partially known transition probabilities}},
+  author={Zhang, Lixian and Boukas, El-K{\'e}bir and Lam, James},
+  journal={IEEE Transactions on Automatic Control},
+  volume={53},
+  number={10},
+  pages={2458--2464},
+  year={2008},
+  publisher={IEEE}
+}
+
+[32] Zabala Y A, Costa O L V. A detector-based approach for the constrained quadratic control of discrete-time Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 2019, 65(3): 1211-1217.
+@article{Zabala:2019,
+  title={{A detector-based approach for the constrained quadratic control of discrete-time Markovian jump linear systems}},
+  author={Zabala, Yeison Andres and Costa, Oswaldo Luiz V},
+  journal={IEEE Transactions on Automatic Control},
+  volume={65},
+  number={3},
+  pages={1211--1217},
+  year={2019},
+  publisher={IEEE}
+}
+
+[33] Tzortzis I, Charalambous C D, Hadjicostis C N. Jump LQR systems with unknown transition probabilities[J]. IEEE Transactions on Automatic Control, 2020, 66(6): 2693-2708.
+@article{Tzortzis:2020,
+  title={{Jump LQR systems with unknown transition probabilities}},
+  author={Tzortzis, Ioannis and Charalambous, Charalambos D and Hadjicostis, Christoforos N},
+  journal={IEEE Transactions on Automatic Control},
+  volume={66},
+  number={6},
+  pages={2693--2708},
+  year={2020},
+  publisher={IEEE}
+}
+
+[34] 	Souza C E, Fragoso M D. H_∞ control for linear systems with Markovian jump parameters[J]. Control Theory and Adovanced Thchnology, 1993, 9(2): 457-466.
+@article{Souza:1993,
+  title={{$H_{\infty}$ control for linear systems with Markovian jumping parameters}},
+  author={ {de Souza {CE}} and Marcelo Dutra Fragoso},
+  journal={Control Theory and Advanced Technology},
+  volume={9},
+  number={2},
+  pages={457-466},
+  year={1993},
+}
+
+[35] Fragoso M D, Val J B R, Pinto D L. Jump linear H_∞ control: the discrete-time case[J]. Control Theory and Advanced Technology, 1995, 10:1459-1474.
+@article{Fragoso:1995,
+  title={{Jump linear $H_{\infty}$-control:the discrete-time case}},
+  author={Marcelo Dutra Fragoso and Jo{\~a}o Bosco Ribeiro {do Val} and Pinto, D. L. },
+  journal={Control Theory and Advanced Technology},
+  volume={10},
+  number={4pt3},
+  pages={1459-1474},
+  year={1995},
+}
+
+[36] Costa O L V, Val J B R. Full information H_∞-control for discrete-time infinite Markov jump parameter systems[J]. Journal of Mathematical Analysis and Applications, 1996, 202(2): 578-603.
+@article{Costa:1996,
+  title={{Full information $H_{\infty}$-control for discrete-time infinite Markov jump parameter systems}},
+  author={Oswaldo Luiz V. Costa and Jo{\~a}o Bosco Ribeiro {do Val}},
+  journal={Journal of Mathematical Analysis and Applications},
+  year={1996},
+  volume={202},
+  pages={578-603}
+}
+
+[37] Shi P, Boukas E K. H_∞-control for Markovian jump linear systems with parametric uncertainty[J]. Journal of optimization theory and applications, 1997, 95: 75-99.
+@article{Shi:1997,
+  title={{$H_{\infty}$-control for Markovian jumping linear systems with parametric uncertainty}},
+  author={Peng Shi and El K{\'e}bir Boukas},
+  journal={Journal of Optimization Theory and Applications},
+  year={1997},
+  volume={95},
+  pages={75-99}
+}
+
+[38] Costa O L V , Marques R P.Mixed H_2/H_∞-control of discrete-time Markovian jump linear systems[J].IEEE Transactions on Automatic Control, 1998, 43(1):95-100.
+@article{Costa:1998-2,
+  title={{Mixed $H_{2}/H_{\infty}$-control of discrete-time Markovian jump linear systems}},
+  author={Oswaldo Luiz V. Costa and R. P. Marques},
+  journal={IEEE Transactions on Automatic Control},
+  year={1998},
+  volume={43},
+  pages={95-100}
+}
+
+[39] Huang Y L, Zhang W H, Feng G. Infinite horizon H_2/H_∞ control for stochastic systems with Markovian jumps[J].Automatica, 2008, 44:857-863.
+@article{Huang:2008,
+  title={{Infinite horizon $H_{2}/H_{\infty}$ control for stochastic systems with Markovian jumps}},
+  author={Yu Lin Huang and Wei Hai Zhang and Gang Feng},
+  journal={Automatica},
+  year={2008},
+  volume={44},
+  pages={857-863}
+}
+
+[40] Luan X L, Zhao S Y, Liu F. H∞ control for discrete-time Markov jump systems with uncertain transition probabilities[J]. IEEE Transactions on Automatic Control, 2013, 58(6): 1566-1572.
+@article{Luan:2013,
+  title={{$H_{\infty}$ Control for discrete-time Markov jump systems with uncertain transition probabilities}},
+  author={Xiaoli Luan and Shunyi Zhao and Fei Liu},
+  journal={IEEE Transactions on Automatic Control},
+  year={2013},
+  volume={58},
+  pages={1566-1572}
+}
+
+[41] Wu Z G, Shen Y, Shi P, et al. H_∞ control for 2-D Markov jump systems in Roesser model[J]. IEEE Transactions on Automatic Control, 2018, 64(1): 427-432.
+@article{Wu:2018,
+  title={{$\mathcal{H}_{\infty}$ control for 2-D Markov jump systems in Roesser model}},
+  author={Zhengguang Wu and Ying Shen and Peng Shi and Zhan Shu and Hongye Su},
+  journal={IEEE Transactions on Automatic Control},
+  year={2018},
+  volume={64},
+  pages={427-432}
+}
+
+[42] Fang H Y, Zhang M G, He S P, et al. Solving the zero-sum control problem for tidal turbine system: An online reinforcement learning approach[J]. IEEE Transactions on Cybernetics, 2023,53(12):7635-7647.
+@article{Fang:2023,
+  title = {Solving the Zero-Sum Control Problem for Tidal Turbine System: An Online Reinforcement Learning Approach},
+  author = {Hai Yang Fang and Mao Guang Zhang and Shu Ping He and Xiao Li Luan and Fei Liu and Zheng Tao Ding},
+  year = {2023},
+  month = {December},
+  doi = {10.1109/TCYB.2022.3186886},
+  url = {https://doi.org/10.1109/TCYB.2022.3186886},
+  researchr = {https://researchr.org/publication/FangZHLLD23},
+  cites = {0},
+  citedby = {0},
+  journal = {IEEE Transactions on Cybernetics},
+  volume = {53},
+  number = {12},
+  pages = {7635-7647},
+}
+
+[43] Boukas E K. On reference model tracking for Markov jump systems[J]. International Journal of Systems Science, 2009, 40(4): 393-401.
+@article{Boukas:2007,
+  title={{On reference model tracking for Markov jump systems}},
+  author={El-K{\'e}bir Boukas},
+  journal={International Journal of Systems Science},
+  year={2007},
+  volume={40},
+  pages={393 - 401}
+}
+
+[44] Fu Y M, Li C J. Parametric method for spacecraft trajectory tracking control problem with stochastic thruster fault[J]. IET Control Theory & Applications, 2016, 10(17): 2331-2338.
+@article{Fu:2016,
+  title={{Parametric method for spacecraft trajectory tracking control problem with stochastic thruster fault}},
+  author={Yanming Fu and Cheng-Jing Li},
+  journal={IET Control Theory and Applications},
+  year={2016},
+  volume={10},
+  pages={2331-2338}
+}
+
+[45] Wang Z, Yuan Y, Yang H. Adaptive fuzzy tracking control for strict-feedback Markov juming nonlinear systems with actuator failures and unmodeled dynamics[J]. IEEE Transactions on Cybernetics, 2020, 50(1): 126-139.
+@article{Wang:2020,
+  title={{Adaptive fuzzy tracking control for strict-feedback Markov jumping nonlinear systems with actuator failures and unmodeled dynamics}},
+  author={Wang, Z.  and  Yuan, Y.  and  Yang, H. },
+  journal={IEEE Transactions on Cybernetics},
+  volume={50},
+  number={1},
+  pages={126-139},
+  year={2020},
+}
+
+[46] Tian G. Tracking control of discrete-time Markovian jump systems[J]. International Journal of Systems Science, 2020, 51(15): 3070-3080.
+@article{Tian:2020,
+  title={{Tracking control of discrete-time Markovian jump systems}},
+  author={Guangtai Tian},
+  journal={International Journal of Systems Science},
+  year={2020},
+  volume={51},
+  pages={3070-3080}
+}
+
 @inproceedings{Beirigo:2018,
   title={{Online TD($\lambda$) for discrete-time Markov jump linear systems}},
   author={ Beirigo, R. L.  and  Todorov, M. G.  and  Barreto, A. M. S. },
@@ -234,15 +535,6 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   author={Bertsekas, Dimitri P. },
   journal={Athena Scientific,},
   year={1996},
-}
-
-@article{Boukas:2007,
-  title={{On reference model tracking for Markov jump systems}},
-  author={El-K{\'e}bir Boukas},
-  journal={International Journal of Systems Science},
-  year={2007},
-  volume={40},
-  pages={393 - 401}
 }
 
 @article{Chen:2019,
@@ -289,17 +581,6 @@ doi = {10.1177/0142331218765610},
   pages={110906},
 }
 
-@article{Chizeck:1988,
-  title={{Controllability, observability and discrete-time Markovian jump linear quadratic control}},
-  author={Ji, Yuandong and Chizeck, HOWARD J},
-  journal={International Journal of Control},
-  volume={48},
-  number={2},
-  pages={481--498},
-  year={1988},
-  publisher={Taylor \& Francis}
-}
-
 @article{Costa:1995,
   title={{Discrete-time LQ-optimal control problems for infinite Markov jump parameter systems}},
   author={Costa, Oswaldo Luiz Valle and Fragoso, Marcelo D},
@@ -309,15 +590,6 @@ doi = {10.1177/0142331218765610},
   pages={2076--2088},
   year={1995},
   publisher={IEEE}
-}
-
-@article{Costa:1996,
-  title={{Full information $H_{\infty}$-control for discrete-time infinite Markov jump parameter systems}},
-  author={Oswaldo Luiz V. Costa and Jo{\~a}o Bosco Ribeiro {do Val}},
-  journal={Journal of Mathematical Analysis and Applications},
-  year={1996},
-  volume={202},
-  pages={578-603}
 }
 
 @article{Costa:1998,
@@ -337,15 +609,6 @@ doi = {10.1177/0142331218765610},
   year={1998},
   volume={16},
   pages={843-858}
-}
-
-@article{Costa:1998-2,
-  title={{Mixed $H_{2}/H_{\infty}$-control of discrete-time Markovian jump linear systems}},
-  author={Oswaldo Luiz V. Costa and R. P. Marques},
-  journal={IEEE Transactions on Automatic Control},
-  year={1998},
-  volume={43},
-  pages={95-100}
 }
 
 @article{Costa:1999,
@@ -378,48 +641,6 @@ doi = {10.1177/0142331218765610},
   year = {2002},
 }
 
-@article{Costa:2003,
-  title={{Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems}},
-  author={Costa, Oswaldo Luiz Valle and Tuesta, Esteban Fern{\'a}ndez},
-  journal={IEEE Transactions on Automatic Control},
-  volume={48},
-  number={10},
-  pages={1836--1842},
-  year={2003},
-  publisher={IEEE}
-}
-
-@article{Costa:2007,
-  title={{Indefinite quadratic with linear costs optimal control of Markov jump with multiplicative noise systems}},
-  author={Costa, Oswaldo Luiz Valle and de Paulo, Wanderlei L},
-  journal={Automatica},
-  volume={43},
-  number={4},
-  pages={587--597},
-  year={2007},
-  publisher={Elsevier}
-}
-
-@article{Fang:2022,
-  author={Fang, Haiyang and Zhang, Maoguang and He, Shuping and Luan, Xiaoli and Liu, Fei and Ding, Zhengtao},
-  journal={IEEE Transactions on Cybernetics}, 
-  title={Solving the zero-sum control problem for tidal turbine system: an online reinforcement learning approach}, 
-  year={2022},
-  volume={},
-  number={},
-  pages={1-13},
-  doi={10.1109/TCYB.2022.3186886}}
-
-@article{Fragoso:1995,
-  title={{Jump linear $H_{\infty}$-control:the discrete-time case}},
-  author={Marcelo Dutra Fragoso and Jo{\~a}o Bosco Ribeiro {do Val} and Pinto, D. L. },
-  journal={Control Theory and Advanced Technology},
-  volume={10},
-  number={4pt3},
-  pages={1459-1474},
-  year={1995},
-}
-
 @article{Fragoso:2001,
   title={{Optimal control for continuous-time linear quadratic problems with infinite Markov jump parameters}},
   author={Marcelo Dutra Fragoso and Baczynski, Jack},
@@ -441,15 +662,6 @@ doi = {10.1177/0142331218765610},
   year={2015}
 }
 
-@article{Fu:2016,
-  title={{Parametric method for spacecraft trajectory tracking control problem with stochastic thruster fault}},
-  author={Yanming Fu and Cheng-Jing Li},
-  journal={IET Control Theory and Applications},
-  year={2016},
-  volume={10},
-  pages={2331-2338}
-}
-
 @article{Hou:2010,
   title={{Finite Horizon $ H\_ $\{$2$\}$/H\_ $\{$$\backslash$infty$\}$ $ Control for Discrete-Time Stochastic Systems With Markovian Jumps and Multiplicative Noise}},
   author={Hou, Ting and Zhang, Weihai and Ma, Hongji},
@@ -465,15 +677,6 @@ doi = {10.1177/0142331218765610},
   title={{Design of a linear controller for robust tracking and model following}},
   author={Hopp, TH and Schmitendorf, WE},
   year={1990}
-}
-
-@article{Huang:2008,
-  title={{Infinite horizon $H_{2}/H_{\infty}$ control for stochastic systems with Markovian jumps}},
-  author={Yulin Huang and Weihai Zhang and Gang Feng},
-  journal={Automatica},
-  year={2008},
-  volume={44},
-  pages={857-863}
 }
 
 @article{Huang:2022,
@@ -494,15 +697,6 @@ doi = {10.1177/0142331218765610},
   pages={407-423}
 }
 
-@article{Luan:2013,
-  title={{$H_{\infty}$ Control for discrete-time Markov jump systems with uncertain transition probabilities}},
-  author={Xiaoli Luan and Shunyi Zhao and Fei Liu},
-  journal={IEEE Transactions on Automatic Control},
-  year={2013},
-  volume={58},
-  pages={1566-1572}
-}
-
 @article{Mariton:1988,
   title={Averaged dynamics and pole assignment for a class of stochastic systems},
   author={M. Mariton},
@@ -517,16 +711,6 @@ doi = {10.1177/0142331218765610},
   author={Mariton},
   journal={Crc Press},
   year={1990},
-}
-
-@article{Matei:2008,
-  title={{Optimal linear quadratic regulator for Markovian jump linear systems in the presence of one time-step delayed mode observations}},
-  author = {Matei, Ion and Martins, Nuno and Baras, John},
-  journal={IFAC Proceedings Volumes},
-  volume={41},
-  number={2},
-  pages={8056-8061},
-  year={2008},
 }
 
 @article{Jiang:2022,
@@ -629,15 +813,6 @@ doi = {10.1177/0142331218765610},
   doi={10.1109/TAC.2021.3106860}
 }
 
-@article{Shi:1997,
-  title={{$H_{\infty}$-control for Markovian jumping linear systems with parametric uncertainty}},
-  author={Peng Shi and El K{\'e}bir Boukas},
-  journal={Journal of Optimization Theory and Applications},
-  year={1997},
-  volume={95},
-  pages={75-99}
-}
-
 @article{Siqueira:2004,
   title={{Nonlinear and Markovian $H_{\infty}$  controls of underactuated manipulators}},
   author={Adriano Almeida Gonçalves Siqueira and Marco H. Terra},
@@ -645,16 +820,6 @@ doi = {10.1177/0142331218765610},
   year={2004},
   volume={12},
   pages={811-826}
-}
-
-@article{Souza:1993,
-  title={{$H_{\infty}$ control for linear systems with Markovian jumping parameters}},
-  author={ {de Souza {CE}} and Marcelo Dutra Fragoso},
-  journal={Control Theory and Advanced Technology},
-  volume={9},
-  number={2},
-  pages={457-466},
-  year={1993},
 }
 
 @article{Souza:2006,
@@ -683,37 +848,6 @@ doi = {10.1177/0142331218765610},
   publisher={MIT press}
 }
 
-@article{Sworder:1969,
-  title={{Feedback control of a class of linear systems with jump parameters}},
-  author={Sworder, David},
-  journal={IEEE Transactions on Automatic Control},
-  volume={14},
-  number={1},
-  pages={9--14},
-  year={1969},
-  publisher={IEEE}
-}
-
-@article{Sworder:1975,
-  title={{Feedback control of a class of linear discrete systems with jump parameters and quadratic cost criteria}},
-  author={Blair Jr, WP and Sworder, DD},
-  journal={International Journal of Control},
-  volume={21},
-  number={5},
-  pages={833--841},
-  year={1975},
-  publisher={Taylor \& Francis}
-}
-
-@article{Sworder:1983,
-  title={{An LQ-solution to a control problem associated with a solar thermal central receiver}},
-  author={Sworder, DD and Rogers, RO},
-  journal={IEEE Transactions on Automatic Control},
-  volume={28},
-  pages={971--978},
-  year={1983}
-}
-
 @article{Tan:2022,
   title={A discrete model-free scheme for fault-tolerant tracking control of redundant manipulators},
   author={Ning Tan and Zhaohui Zhong and YU Peng and Zhan Li and Fenglei Ni},
@@ -721,15 +855,6 @@ doi = {10.1177/0142331218765610},
   year={2022},
   volume={18},
   pages={8595-8606}
-}
-
-@article{Tian:2020,
-  title={{Tracking control of discrete-time Markovian jump systems}},
-  author={Guangtai Tian},
-  journal={International Journal of Systems Science},
-  year={2020},
-  volume={51},
-  pages={3070 - 3080}
 }
 
 @article{Tian:2021,
@@ -749,27 +874,6 @@ doi = {10.1177/0142331218765610},
   pages={110594},
   year={2022},
   publisher={Elsevier}
-}
-
-@article{Tzortzis:2020,
-  title={{Jump LQR systems with unknown transition probabilities}},
-  author={Tzortzis, Ioannis and Charalambous, Charalambos D and Hadjicostis, Christoforos N},
-  journal={IEEE Transactions on Automatic Control},
-  volume={66},
-  number={6},
-  pages={2693--2708},
-  year={2020},
-  publisher={IEEE}
-}
-
-@article{Wang:2020,
-  title={{Adaptive fuzzy tracking control for strict-feedback Markov jumping nonlinear systems with actuator failures and unmodeled dynamics}},
-  author={Wang, Z.  and  Yuan, Y.  and  Yang, H. },
-  journal={IEEE Transactions on Cybernetics},
-  volume={50},
-  number={1},
-  pages={126-139},
-  year={2020},
 }
 
 @article{Wonham:1968,
@@ -798,15 +902,6 @@ doi = {10.1177/0142331218765610},
   pages={472--485},
   year={2013},
   publisher={Elsevier}
-}
-
-@article{Wu:2018,
-  title={{$\mathcal{H}_{\infty}$ control for 2-D Markov jump systems in Roesser model}},
-  author={Zhengguang Wu and Ying Shen and Peng Shi and Zhan Shu and Hongye Su},
-  journal={IEEE Transactions on Automatic Control},
-  year={2018},
-  volume={64},
-  pages={427-432}
 }
 
 @article{Xiao:2005,
@@ -851,33 +946,11 @@ doi = {10.1177/0142331218765610},
   publisher={Huanan Ligong Daxue}
 }
 
-@article{Zabala:2019,
-  title={{A detector-based approach for the constrained quadratic control of discrete-time Markovian jump linear systems}},
-  author={Zabala, Yeison Andres and Costa, Oswaldo Luiz V},
-  journal={IEEE Transactions on Automatic Control},
-  volume={65},
-  number={3},
-  pages={1211--1217},
-  year={2019},
-  publisher={IEEE}
-}
-
 @book{Zeidler:1986,
   title={Nonlinear Functional Analysis and its Applications I: Fixed-Point Theorems.},
   author={Zeidler, E},
   year={1986},
   publisher={Springer}
-}
-
-@article{zhang:2008,
-  title={{Analysis and synthesis of Markov jump linear systems with time-varying delays and partially known transition probabilities}},
-  author={Zhang, Lixian and Boukas, El-K{\'e}bir and Lam, James},
-  journal={IEEE Transactions on Automatic Control},
-  volume={53},
-  number={10},
-  pages={2458--2464},
-  year={2008},
-  publisher={IEEE}
 }
 
 @article{zhang:2009,
