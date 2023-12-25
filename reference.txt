@@ -564,6 +564,8 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={IEEE}
 }
 
+[55] Souza C E, Fragoso M D.  H_∞ filtering for discrete-time linear systems with Markovian jumping parameters[J]. International Journal of Robust and Nonlinear Control, 2003, 13(14): 1299-1316.
+
 [57] Souza C E, Fragoso M D. Robust ℋ︁∞ filtering for uncertain Markovian jump linear systems[J]. International Journal of Robust and Nonlinear Control, 2002, 12(5): 435-446.
 @article{de2002robust,
   title={Robust ℋ︁∞ filtering for uncertain Markovian jump linear systems},
@@ -576,6 +578,74 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Wiley Online Library}
 }
 
+[57] Souza C E, A mode-independent H_∞ filter design for discrete-time Markovian jump linear systems[C]//42nd IEEE Conference on Decision and Control, 2003, 3: 2811-2816.
+@inproceedings{Souza:2003,
+  title={A mode-independent H_∞ filter design for discrete-time Markovian jump linear systems},
+  author={de Souza, Carlos E},
+  booktitle={42nd IEEE International Conference on Decision and Control (IEEE Cat. No. 03CH37475)},
+  volume={3},
+  pages={2811--2816},
+  year={2003},
+  organization={IEEE}
+}
+
+[58] Souza C E, Trofino A, Barbosa K A. Mode-independent H_∞ filters for hybrid Markov linear systems[C]//2004 43rd IEEE Conference on Decision and Control (CDC), 2004, 1: 947-952.
+@inproceedings{de2004mode,
+  title={Mode-independent H_∞ filters for hybrid Markov linear systems},
+  author={Souza, Carlos E and Trofino, Alexandre and Barbosa, Karina A},
+  booktitle={2004 43rd IEEE Conference on Decision and Control (CDC)(IEEE Cat. No. 04CH37601)},
+  volume={1},
+  pages={947--952},
+  year={2004},
+  organization={IEEE}
+}
+
+[59]Souza C E , Trofino A , Barbosa K A. Mode-independent H_∞ filters for Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 2006, 51: 1837-1841.
+@article{Souza:2006,
+  title={Mode-independent H∞ filters for Markovian jump linear systems},
+  author={Souza, C. E.  and  Trofino, A.  and  Barbosa, K. A. },
+  journal={IEEE Transactions on Automatic Control},
+  year={2006},
+  volume={51},
+  pages={1837-1841}
+}
+
+[60] Liu H, Ho D W C, Sun F. Design of H∞ filter for Markov juming linear systems with non-accessible mode information[J]. Automatica, 2008, 44(10): 2655-2660.
+@article{Liu:2008,
+  title={Design of H∞ filter for Markov jumping linear systems with non-accessible mode information},
+  author={Liu, Huaping and Ho, Daniel WC and Sun, Fuchun},
+  journal={Automatica},
+  volume={44},
+  number={10},
+  pages={2655--2660},
+  year={2008},
+  publisher={Elsevier}
+}
+
+[61] Xu S, Chen T, Lam J. Robust H_∞ filtering for uncertain Markovian jump systems with mode-dependent time delays[J]. IEEE Transactions on Automatic control, 2003, 48(5): 900-907.
+@article{Xu:2003,
+  title={Robust H_∞ filtering for uncertain Markovian jump systems with mode-dependent time delays},
+  author={Xu, Shengyuan and Chen, Tongwen and Lam, James},
+  journal={IEEE Transactions on Automatic control},
+  volume={48},
+  number={5},
+  pages={900--907},
+  year={2003},
+  publisher={IEEE}
+}
+
+[62] Wu L, Shi P, Gao H, et al. H_∞ filtering for 2D Markovian jump systems[J]. Automatica, 2008, 44(7): 1849-1858.
+@article{Wu:2008,
+  title={H∞ filtering for 2D Markovian jump systems},
+  author={Wu, Ligang and Shi, Peng and Gao, Huijun and Wang, Changhong},
+  journal={Automatica},
+  volume={44},
+  number={7},
+  pages={1849--1858},
+  year={2008},
+  publisher={Elsevier}
+}
+
 [64] Zhang L, Boukas E K. Mode-dependent H_∞ filtering for discrete-time Markovian jump linear systems with partly unknown transition probabilities[J]. Automatica, 2009, 45(6): 1462-1467.
 @article{Zhang:2009,
   title={Mode-dependent H∞ filtering for discrete-time Markovian jump linear systems with partly unknown transition probabilities},
@@ -586,6 +656,17 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   pages={1462--1467},
   year={2009},
   publisher={Elsevier}
+}
+
+[65] Li X, Lam J, Gao H,et al. H_∞ and H_2 filtering for linear systems with uncertain Markov transitions[J]. Automatica, 2016, 67: 252-266.
+@article{Li:2016,
+  title={H_∞ and H_2 filtering for linear systems with uncertain Markov transitions},
+  author={ Li, X  and  Lam, J  and  Gao, H  and  Xiong, J },
+  journal={Automatica},
+  volume={67},
+  number={C},
+  pages={252-266},
+  year={2016},
 }
 
 [66] Oliveira A M, Costa O L V. H_∞-filtering for Markov jump linear systems with partial information on the jump parameter[J]. IFAC Journal of Systems and Control, 2017, 1: 13-23.
