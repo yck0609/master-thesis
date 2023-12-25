@@ -14,8 +14,20 @@
 	pages = {212-215}, publisher = {国防大学出版社} 
 }
 
-[3] Ji Y, Chizeck H J. Controllability, observability and discrete-time Markovian jump linear quadratic control[J]. International Journal of Control, 1988, 48(2): 481-498.
-@article{Chizeck:1988,
+[3] Mariton M. On controlability of linear systems with stochastic jump parameters[J]. IEEE transactions on Automatic Control, 1986, 31(7): 680-683.
+@article{Mariton:1986,
+  title={On controlability of linear systems with stochastic jump parameters},
+  author={Mariton, M},
+  journal={IEEE transactions on Automatic Control},
+  volume={31},
+  number={7},
+  pages={680--683},
+  year={1986},
+  publisher={IEEE}
+}
+
+[4] Ji Y, Chizeck H J. Controllability, observability and discrete-time Markovian jump linear quadratic control[J]. International Journal of Control, 1988, 48(2): 481-498.
+@article{Ji:1988,
   title={{Controllability, observability and discrete-time Markovian jump linear quadratic control}},
   author={Ji, Yuandong and Chizeck, HOWARD J},
   journal={International Journal of Control},
@@ -26,7 +38,97 @@
   publisher={Taylor \& Francis}
 }
 
-[4]  Sworder D. Feedback control of a class of linear systems with jump parameters[J]. IEEE Transactions on Automatic Control, 1969, 14(1): 9-14.
+[5] Ji Y, Chizeck H J. Controllability, stabilizability, and continuous-time Markovian jump linear quadratic control[J]. IEEE Transactions on automatic control, 1990, 35(7): 777-788.
+@article{Ji:1990,
+  title={Controllability, stabilizability, and continuous-time Markovian jump linear quadratic control},
+  author={Ji, Yuandong and Chizeck, Howard Jay},
+  journal={IEEE Transactions on automatic control},
+  volume={35},
+  number={7},
+  pages={777--788},
+  year={1990},
+  publisher={IEEE}
+}
+
+[6] Feng X, Loparo K A, Ji Y, et al. Stochastic stability properties of jump linear systems[J]. IEEE transactions on Automatic Control, 1992, 37(1): 38-53.
+@article{Feng:1992,
+  title={Stochastic stability properties of jump linear systems},
+  author={Feng, Xiangbo and Loparo, Kenneth A and Ji, Yuandong and Chizeck, Howard Jay},
+  journal={IEEE transactions on Automatic Control},
+  volume={37},
+  number={1},
+  pages={38--53},
+  year={1992},
+  publisher={IEEE}
+}
+
+[7] Fang Y, Loparo K A. Stochastic stability of jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(7): 1204-1208.
+@article{Fang:2002,
+  title={{Stochastic stability of jump linear systems}},
+  author={Fang, Y.  and  Loparo, K. A.},
+  journal={IEEE Transactions on Automatic Control},
+  volume={47},
+  number={7},
+  pages={1204-1208},
+  year={2002},
+}
+
+[8] Hou Z, Luo J, Shi P, et al. Stochastic stability of Ito differential equations with semi-Markovian jump parameters[J]. IEEE Transactions on Automatic Control, 2006, 51(8): 1383-1387.
+@article{Hou:2006,
+  title={{Stochastic stability of Ito differential equations with semi-Markovian jump parameters}},
+  author={Zhenting Hou and Jiaowan Luo and Peng Shi and Sing Kiong Nguang},
+  journal={IEEE Transactions on Automatic Control},
+  year={2006},
+  volume={51},
+  pages={1383-1387}
+}
+
+[9] Hou T, Ma H. Exponential stability for discrete-time infinite Markov jump systems[J]. IEEE Transactions on Automatic Control, 2015, 61(12): 4241-4246.
+@article{Hou:2015,
+  title={Exponential stability for discrete-time infinite Markov jump systems},
+  author={Hou, Ting and Ma, Hongji},
+  journal={IEEE Transactions on Automatic Control},
+  volume={61},
+  number={12},
+  pages={4241--4246},
+  year={2015},
+  publisher={IEEE}
+}
+
+[10] Wu X, Shi P, Tang Y, et al. Stability analysis of semi-Markov jump stochastic nonlinear systems[J]. IEEE Transactions on Automatic Control, 2021, 67(4): 2084-2091.
+@article{Wu:2022,
+  author={Wu, Xiaotai and Shi, Peng and Tang, Yang and Mao, Shuai and Qian, Feng},
+  journal={IEEE Transactions on Automatic Control}, 
+  title={{Stability analysis of semi-Markov jump stochastic nonlinear systems}}, 
+  year={2022},
+  volume={67},
+  number={4},
+  pages={2084-2091},
+}
+
+[11] Fang Y, Loparo K A. Stabilization of continuous-time jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(10): 1590-1603.
+@article{Fang:2002-1,
+  title={{Stabilization of continuous-time jump linear systems}},
+  author={{}Fang, Y.  and  Loparo, K. A.},
+  journal={IEEE Transactions on Automatic Control},
+  volume={47},
+  number={10},
+  pages={1590-1603},
+  year={2002},
+}
+
+[12] Xiao N, Xie L, Fu M.Stabilization of Markov jump linear systems using quantized state feedback[J]. Automatica, 2010, 46(10):1696-1702.
+@article{Xiao:2010,
+  title={Stabilization of Markov jump linear systems using quantized state feedback},
+  author={ Xiao, Nan  and  Xie, Lihua  and  Fu, Minyue },
+  journal={Automatica},
+  volume={46},
+  number={10},
+  pages={1696-1702},
+  year={2010},
+}
+
+[13]  Sworder D. Feedback control of a class of linear systems with jump parameters[J]. IEEE Transactions on Automatic Control, 1969, 14(1): 9-14.
 @article{Sworder:1969,
   title={{Feedback control of a class of linear systems with jump parameters}},
   author={Sworder, David},
@@ -38,7 +140,7 @@
   publisher={IEEE}
 }
 
-[5] Blair W P, Sworder D. Feedback control of a class of linear discrete systems with jump parameters and quadratic cost criteria[J]. International Journal of Control, 1975, 21(5): 833-841.
+[14] Blair W P, Sworder D. Feedback control of a class of linear discrete systems with jump parameters and quadratic cost criteria[J]. International Journal of Control, 1975, 21(5): 833-841.
 @article{Sworder:1975,
   title={{Feedback control of a class of linear discrete systems with jump parameters and quadratic cost criteria}},
   author={Blair , WP and Sworder, DD},
@@ -50,7 +152,7 @@
   publisher={Taylor \& Francis}
 }
 
-[6] Sworder D, Rogers R. An LQ-solution to a control problem associated with a solar thermal central receiver[J]. IEEE Transactions on Automatic Control, 1983, 28(10): 971-978.
+[15] Sworder D, Rogers R. An LQ-solution to a control problem associated with a solar thermal central receiver[J]. IEEE Transactions on Automatic Control, 1983, 28(10): 971-978.
 @article{Sworder:1983,
   title={{An LQ-solution to a control problem associated with a solar thermal central receiver}},
   author={Sworder, DD and Rogers, RO},
@@ -60,17 +162,7 @@
   year={1983}
 }
 
-[7] Chizeck H J, Ji Y. Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time[C]//Proceedings of the 27th IEEE Conference on Decision and Control. IEEE, 1988: 1989-1993.
-@inproceedings{Chizeck:1988-1,
-  title={{Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time}},
-  author={Chizeck, H Ji and Ji, Y},
-  booktitle={Proceedings of the 27th IEEE Conference on Decision and Control},
-  pages={1989--1993},
-  year={1988},
-  organization={IEEE}
-}
-
-[8] Abou-Kandil H, Freiling G, Jank G. On the solution of discrete-time Markovian jump linear quadratic control problems[J]. Automatica, 1995, 31(5): 765-768.
+[16] Abou-Kandil H, Freiling G, Jank G. On the solution of discrete-time Markovian jump linear quadratic control problems[J]. Automatica, 1995, 31(5): 765-768.
 @article{Abou-Kandil:1995,
   title={{On the solution of discrete-time Markovian jump linear quadratic control problems}},
   author={Abou-Kandil, H.  and  Freiling, G.  and  Jank, G. },
@@ -81,62 +173,41 @@
   year={1995},
 }
 
-[9] Fang Y, Loparo K A. Stochastic stability of jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(7): 1204-1208.
-@article{Fang:2002,
-  title={{Stochastic stability of jump linear systems}},
-  author={Fang, Y.  and  Loparo, K. A.},
-  journal={IEEE Transactions on Automatic Control},
-  volume={47},
-  number={7},
-  pages={1204-1208},
-  year={2002},
+[17] Chizeck H J, Ji Y. Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time[C]//27th IEEE Conference on Decision and Control, 1988, 1989-1993.
+@inproceedings{Chizeck:1988-1,
+  title={{Optimal quadratic control of jump linear systems with Gaussian noise in discrete-time}},
+  author={Chizeck, H Ji and Ji, Y},
+  booktitle={Proceedings of the 27th IEEE Conference on Decision and Control},
+  pages={1989--1993},
+  year={1988},
+  organization={IEEE}
 }
 
-[10] Fang Y, Loparo K A. Stabilization of continuous-time jump linear systems[J]. IEEE Transactions on Automatic Control, 2002, 47(10): 1590-1603.
-@article{Fang:2002-1,
-  title={{Stabilization of continuous-time jump linear systems}},
-  author={{}Fang, Y.  and  Loparo, K. A.},
-  journal={IEEE Transactions on Automatic Control},
-  volume={47},
-  number={10},
-  pages={1590-1603},
-  year={2002},
-}
-
-[11] Hou Z, Luo J, Shi P, et al. Stochastic stability of Ito differential equations with semi-Markovian jump parameters[J]. IEEE Transactions on Automatic Control, 2006, 51(8): 1383-1387.
-@article{Hou:2006,
-  title={{Stochastic stability of Ito differential equations with semi-Markovian jump parameters}},
-  author={Zhenting Hou and Jiaowan Luo and Peng Shi and Sing Kiong Nguang},
-  journal={IEEE Transactions on Automatic Control},
-  year={2006},
-  volume={51},
-  pages={1383-1387}
-}
-
-[12] Li F, Wu L, Shi P. Stochastic stability of semi‐Markovian jump systems with mode‐dependent delays[J]. International Journal of Robust and Nonlinear Control, 2014, 24(18): 3317-3330.
-@article{Li:2014,
-  title={{Stochastic stability of semi-Markovian jump systems with mode-dependent delays}},
-  author={Li, Fanbiao and Wu, Ligang and Shi, Peng},
-  journal={International Journal of Robust and Nonlinear Control},
-  volume={24},
-  number={18},
-  pages={3317--3330},
-  year={2014},
-  publisher={Wiley Online Library}
-}
-
-[13] Wu X, Shi P, Tang Y, et al. Stability analysis of semi-Markov jump stochastic nonlinear systems[J]. IEEE Transactions on Automatic Control, 2021, 67(4): 2084-2091.
-@article{Wu:2022,
-  author={Wu, Xiaotai and Shi, Peng and Tang, Yang and Mao, Shuai and Qian, Feng},
+[18] Ji Y, Chizeck H J. Jump Linear Quadratic Gaussian Control in Continuous Time[J]. IEEE Transactions on Automatic Control, 1992, 37 (12): 1884–1892.
+@article{Ji:1992,
+  author={Ji, Y. and Chizeck, H.J.},
   journal={IEEE Transactions on Automatic Control}, 
-  title={{Stability analysis of semi-Markov jump stochastic nonlinear systems}}, 
-  year={2022},
-  volume={67},
-  number={4},
-  pages={2084-2091},
+  title={Jump linear quadratic Gaussian control in continuous time}, 
+  year={1992},
+  volume={37},
+  number={12},
+  pages={1884-1892},
+  doi={10.1109/9.182475}
 }
 
-[14] Costa O L V. Linear minimum mean square error estimation for discrete-time Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 1994, 39(8): 1685-1689.
+[19] Costa O L V, Tuesta E F. Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 2003, 48(10): 1836-1842.
+@article{Costa:2003,
+  title={{Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems}},
+  author={Costa, Oswaldo Luiz Valle and Tuesta, Esteban Fern{\'a}ndez},
+  journal={IEEE Transactions on Automatic Control},
+  volume={48},
+  number={10},
+  pages={1836--1842},
+  year={2003},
+  publisher={IEEE}
+}
+
+[20] Costa O L V. Linear minimum mean square error estimation for discrete-time Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 1994, 39(8): 1685-1689.
 @article{Costa:1994,
   title={Linear minimum mean square error estimation for discrete-time Markovian jump linear systems},
   author={Costa, OL do V},
@@ -148,7 +219,7 @@
   publisher={IEEE}
 }
 
-[15] Costa O L V, Guerra S. Stationary filter for linear minimum mean square error estimator of discrete-time Markovian jump systems[J]. IEEE Transactions on Automatic Control, 2002, 47(8): 1351-1356.
+[21] Costa O L V, Guerra S. Stationary filter for linear minimum mean square error estimator of discrete-time Markovian jump systems[J]. IEEE Transactions on Automatic Control, 2002, 47(8): 1351-1356.
 @article{Costa:2002,
   title={Stationary filter for linear minimum mean square error estimator of discrete-time Markovian jump systems},
   author={Costa, Oswaldo LV and Guerra, Susset},
@@ -160,7 +231,7 @@
   publisher={IEEE}
 }
 
-[16] Costa O L V, Benites G R A M. Linear minimum mean square filter for discrete-time linear systems with Markov jumps and multiplicative noises[J]. Automatica, 2011, 47(3): 466-476.
+[22] Costa O L V, Benites G R A M. Linear minimum mean square filter for discrete-time linear systems with Markov jumps and multiplicative noises[J]. Automatica, 2011, 47(3): 466-476.
 @article{Costa:2011,
   title={Linear minimum mean square filter for discrete-time linear systems with Markov jumps and multiplicative noises},
   author={Costa, Oswaldo LV and Benites, Guilherme RAM},
@@ -172,7 +243,7 @@
   publisher={Elsevier}
 }
 
-[17] Saporta B, Costa E F. Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2015, 61(8): 2035-2048.
+[23] Saporta B, Costa E F. Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2015, 61(8): 2035-2048.
 @article{Saporta:2015,
   title={Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems},
   author={De Saporta, Beno{\^\i}te and Costa, Eduardo F},
@@ -184,7 +255,7 @@
   publisher={IEEE}
 }
 
-[18].	Costa E F, Saporta B. Linear minimum mean square filters for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2017, 62(7): 3567-3572.
+[24] Costa E F, Saporta B. Linear minimum mean square filters for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2017, 62(7): 3567-3572.
 @article{CostaEF:2017,
   title={Linear minimum mean square filters for Markov jump linear systems},
   author={Costa, Eduardo F and De Saporta, Beno{\^\i}te},
@@ -196,7 +267,7 @@
   publisher={IEEE}
 }
 
-[18] Sun Q, Lim C C, Shi P, et al. Design and stability of moving horizon estimator for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2018, 64(3): 1109-1124.
+[25] Sun Q, Lim C C, Shi P, et al. Design and stability of moving horizon estimator for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2018, 64(3): 1109-1124.
 @article{Sun:2018,
   title={{Design and stability of moving horizon estimator for Markov jump linear systems}},
   author={Sun, Qing and Lim, Cheng-Chew and Shi, Peng and Liu, Fei},
@@ -208,7 +279,7 @@
   publisher={IEEE}
 }
 
-[19] Balenzuela M P, Wills A G, Renton C, et al. Parameter estimation for jump Markov linear systems[J]. Automatica, 2022, 135: 109949.
+[26] Balenzuela M P, Wills A G, Renton C, et al. Parameter estimation for jump Markov linear systems[J]. Automatica, 2022, 135: 109949.
 @article{Balenzuela:2022,
 title = {{Parameter estimation for jump Markov linear systems}},
 journal = {Automatica},
@@ -218,7 +289,7 @@ year = {2022},
 author = {Mark P. Balenzuela and Adrian G. Wills and Christopher Renton and Brett Ninness},
 }
 
-[20] Balenzuela M P, Wills A G, Renton C, et al. A new smoothing algorithm for jump Markov linear systems[J]. Automatica, 2022, 140: 110218.
+[27] Balenzuela M P, Wills A G, Renton C, et al. A new smoothing algorithm for jump Markov linear systems[J]. Automatica, 2022, 140: 110218.
 @article{Balenzuela:2022-1,
 title = {{A new smoothing algorithm for jump Markov linear systems}},
 journal = {Automatica},
@@ -230,7 +301,7 @@ author = {Mark Peter Balenzuela and Adrian G. Wills and Christopher Renton and B
 keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), Switched linear dynamical systems (SLDS), Interacting multiple models (IMM)},
 }
 
-[21] Shen Y, Wu Z G, Shi P, et al. Model reduction of Markovian jump systems with uncertain probabilities[J]. IEEE Transactions on Automatic Control, 2019, 65(1): 382-388.
+[28] Shen Y, Wu Z G, Shi P, et al. Model reduction of Markovian jump systems with uncertain probabilities[J]. IEEE Transactions on Automatic Control, 2019, 65(1): 382-388.
 @article{Shen:2019,
   title={{Model reduction of Markovian jump systems with uncertain probabilities}},
   author={Shen, Ying and Wu, Zheng-Guang and Shi, Peng and Ahn, Choon Ki},
@@ -242,7 +313,7 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={IEEE}
 }
 
-[22] Shen Y, Wu Z G, Meng D. Nonsynchronous model reduction for uncertain 2-D Markov jump systems[J]. IEEE Transactions on Cybernetics, 2021, 52(10): 10177-10186. 
+[29] Shen Y, Wu Z G, Meng D. Nonsynchronous model reduction for uncertain 2-D Markov jump systems[J]. IEEE Transactions on Cybernetics, 2021, 52(10): 10177-10186. 
 @article{Shen:2021,
   author={Shen, Ying and Wu, Zheng-Guang and Meng, Deyuan},
   journal={IEEE Transactions on Cybernetics}, 
@@ -254,7 +325,7 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   doi={10.1109/TCYB.2021.3069784}
 }
 
-[23] Costa O L V, Fragoso M D, Marques R P. Discrete-time Markov jump linear systems[M]. Springer Science & Business Media, 2005.
+[30] Costa O L V, Fragoso M D, Marques R P. Discrete-time Markov jump linear systems[M]. Springer Science & Business Media, 2005.
 @book{Costa:2005,
   title={{Discrete-time Markov jump linear systems}},
   author={Costa, Oswaldo Luiz Valle and Fragoso, Marcelo Dutra and Marques, Ricardo Paulino},
@@ -262,7 +333,7 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Springer Science \& Business Media}
 }
 
-[24] Costa O L, Fragoso M D, Todorov M G. Continuous-time Markov jump linear systems[M]. Springer Science & Business Media, 2012.
+[31] Costa O L, Fragoso M D, Todorov M G. Continuous-time Markov jump linear systems[M]. Springer Science & Business Media, 2012.
 @book{Costa:2012,
   title={{Continuous-time Markov jump linear systems}},
   author={Costa, Oswaldo Luiz Valle and Fragoso, Marcelo D and Todorov, Marcos G},
@@ -270,7 +341,7 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Springer Science \& Business Media}
 }
 
-[25] Zhou H, Kong H, Wei L, et al. Efficient road detection and tracking for unmanned aerial vehicle[J]. IEEE transactions on intelligent transportation systems, 2014, 16(1): 297-309.
+[32] Zhou H, Kong H, Wei L, et al. Efficient road detection and tracking for unmanned aerial vehicle[J]. IEEE transactions on intelligent transportation systems, 2014, 16(1): 297-309.
 @article{Zhou:2014,
   title={{Efficient road detection and tracking for unmanned aerial vehicle}},
   author={Zhou, Hailing and Kong, Hui and Wei, Lei and Creighton, Douglas and Nahavandi, Saeid},
@@ -282,7 +353,7 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={IEEE}
 }
 
-[26] Joshi S K, Baumgartner S V, Krieger G. Tracking and track management of extended targets in range-Doppler using range-compressed airborne radar data[J]. IEEE Transactions on Geoscience and Remote Sensing, 2021, 60: 1-20.
+[33] Joshi S K, Baumgartner S V, Krieger G. Tracking and track management of extended targets in range-Doppler using range-compressed airborne radar data[J]. IEEE Transactions on Geoscience and Remote Sensing, 2021, 60: 1-20.
 @article{Joshi:2021,
   title={{Tracking and track management of extended targets in range-Doppler using range-compressed airborne radar data}},
   author={Joshi, Sushil Kumar and Baumgartner, Stefan V and Krieger, Gerhard},
@@ -293,7 +364,7 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={IEEE}
 }
 
-[27] Zames G. Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses[J]. IEEE Transactions on automatic control, 1981, 26(2): 301-320.
+[34] Zames G. Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses[J]. IEEE Transactions on automatic control, 1981, 26(2): 301-320.
 @article{Zames:1981,
   title={Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses},
   author={Zames, George},
@@ -339,18 +410,6 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   pages={2676--2681},
   year={1991},
   organization={IEEE}
-}
-
-[32] Costa O L V, Tuesta E F. Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems[J]. IEEE Transactions on Automatic Control, 2003, 48(10): 1836-1842.
-@article{Costa:2003,
-  title={{Finite horizon quadratic optimal control and a separation principle for Markovian jump linear systems}},
-  author={Costa, Oswaldo Luiz Valle and Tuesta, Esteban Fern{\'a}ndez},
-  journal={IEEE Transactions on Automatic Control},
-  volume={48},
-  number={10},
-  pages={1836--1842},
-  year={2003},
-  publisher={IEEE}
 }
 
 [33] Costa O L V, Paulo W L. Indefinite quadratic with linear costs optimal control of Markov jump with multiplicative noise systems[J]. Automatica, 2007, 43(4): 587-597.
@@ -1215,5 +1274,17 @@ doi = {10.1177/0142331218765610},
   number={5},
   pages={517--522},
   year={2006}
+}
+
+[12] Li F, Wu L, Shi P. Stochastic stability of semi‐Markovian jump systems with mode‐dependent delays[J]. International Journal of Robust and Nonlinear Control, 2014, 24(18): 3317-3330.
+@article{Li:2014,
+  title={{Stochastic stability of semi-Markovian jump systems with mode-dependent delays}},
+  author={Li, Fanbiao and Wu, Ligang and Shi, Peng},
+  journal={International Journal of Robust and Nonlinear Control},
+  volume={24},
+  number={18},
+  pages={3317--3330},
+  year={2014},
+  publisher={Wiley Online Library}
 }
 
