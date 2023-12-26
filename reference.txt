@@ -16,14 +16,14 @@
 
 [3] Mariton M. On controlability of linear systems with stochastic jump parameters[J]. IEEE transactions on Automatic Control, 1986, 31(7): 680-683.
 @article{Mariton:1986,
-  title={On controlability of linear systems with stochastic jump parameters},
-  author={Mariton, M},
-  journal={IEEE transactions on Automatic Control},
-  volume={31},
-  number={7},
-  pages={680--683},
-  year={1986},
-  publisher={IEEE}
+	title={On controlability of linear systems with stochastic jump parameters},
+	author={Mariton, M},
+	journal={IEEE transactions on Automatic Control},
+  	volume={31},
+  	number={7},
+  	pages={680--683},
+  	year={1986},
+  	publisher={IEEE}
 }
 
 [4] Ji Y, Chizeck H J. Controllability, observability and discrete-time Markovian jump linear quadratic control[J]. International Journal of Control, 1988, 48(2): 481-498.
@@ -243,18 +243,6 @@
   publisher={Elsevier}
 }
 
-[23] Saporta B, Costa E F. Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2015, 61(8): 2035-2048.
-@article{Saporta:2015,
-  title={Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems},
-  author={De Saporta, Beno{\^\i}te and Costa, Eduardo F},
-  journal={IEEE Transactions on Automatic Control},
-  volume={61},
-  number={8},
-  pages={2035--2048},
-  year={2015},
-  publisher={IEEE}
-}
-
 [24] Costa E F, Saporta B. Linear minimum mean square filters for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2017, 62(7): 3567-3572.
 @article{CostaEF:2017,
   title={Linear minimum mean square filters for Markov jump linear systems},
@@ -364,6 +352,17 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={IEEE}
 }
 
+[33] Wang Y, Tang C, Wang S, et al. Target tracking control of a biomimetic underwater vehicle through deep reinforcement learning[J]. IEEE Transactions on Neural Networks and Learning Systems, 2021, 33(8): 3741-3752.
+@article{Wang:2021,
+  title={Target Tracking Control of a Biomimetic Underwater Vehicle Through Deep Reinforcement Learning},
+  author={Yu Wang and Chong Tang and Shuo Wang and Long Cheng and Rui Wang and Min Tan and Zengguang Hou},
+  journal={IEEE Transactions on Neural Networks and Learning Systems},
+  year={2021},
+  volume={33},
+  pages={3741-3752},
+  url={https://api.semanticscholar.org/CorpusID:231872921}
+}
+
 [34] Zames G. Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses[J]. IEEE Transactions on automatic control, 1981, 26(2): 301-320.
 @article{Zames:1981,
   title={Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses},
@@ -383,12 +382,12 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   year={1990}
 }
 
-[29] Simon D. Kalman  H_∞ and nonlinear approaches[J]. Optimal state estimation, John Wiley & Sons, 2006.
-@article{Simon:2006,
-  title={Kalman h-infinity and nonlinear approaches},
-  author={Simon, D},
-  journal={Optimal state estimation, John Wiley \& Sons},
-  year={2006}
+[29] Simon D. Optimal state estimation: Kalman, H_∞, and nonlinear approaches[M]. John Wiley & Sons, 2006.
+@book{Simon:2006,
+  title={Optimal state estimation: Kalman, H infinity, and nonlinear approaches},
+  author={Simon, Dan},
+  year={2006},
+  publisher={John Wiley \& Sons}
 }
 
 [30] Hou Z S, Wang Z. From model-based control to data-driven control: Survey, classification and perspective[J]. Information Sciences, 2013, 235: 3-35.
@@ -1107,6 +1106,18 @@ doi = {10.1177/0142331218765610},
   year={2004},
   volume={12},
   pages={811-826}
+}
+
+[23] Saporta B, Costa E F. Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2015, 61(8): 2035-2048.
+@article{Saporta:2015,
+  title={Approximate Kalman-Bucy filter for continuous-time semi-Markov jump linear systems},
+  author={De Saporta, Beno{\^\i}te and Costa, Eduardo F},
+  journal={IEEE Transactions on Automatic Control},
+  volume={61},
+  number={8},
+  pages={2035--2048},
+  year={2015},
+  publisher={IEEE}
 }
 
 @article{Souza:2006,
