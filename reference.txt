@@ -363,6 +363,14 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   url={https://api.semanticscholar.org/CorpusID:231872921}
 }
 
+[34] 褚健.鲁棒控制理论及应用[M].浙江大学出版社,2000.
+@book{褚健2000鲁棒控制理论及应用,
+  title={鲁棒控制理论及应用},
+  author={褚健},
+  publisher={鲁棒控制理论及应用},
+  year={2000},
+}
+
 [34] Zames G. Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses[J]. IEEE Transactions on automatic control, 1981, 26(2): 301-320.
 @article{Zames:1981,
   title={Feedback and optimal sensitivity: Model reference transformations, multiplicative seminorms, and approximate inverses},
