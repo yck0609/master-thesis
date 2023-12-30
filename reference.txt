@@ -14,11 +14,11 @@
 	pages = {212-215}, publisher = {国防大学出版社} 
 }
 
-[3] Mariton M. On controlability of linear systems with stochastic jump parameters[J]. IEEE transactions on Automatic Control, 1986, 31(7): 680-683.
+[3] Mariton M. On controlability of linear systems with stochastic jump parameters[J]. IEEE Transactions on Automatic Control, 1986, 31(7): 680-683.
 @article{Mariton:1986,
 	title={On controlability of linear systems with stochastic jump parameters},
 	author={Mariton, M},
-	journal={IEEE transactions on Automatic Control},
+	journal={IEEE Transactions on Automatic Control},
   	volume={31},
   	number={7},
   	pages={680--683},
@@ -38,11 +38,11 @@
   publisher={Taylor \& Francis}
 }
 
-[5] Ji Y, Chizeck H J. Controllability, stabilizability, and continuous-time Markovian jump linear quadratic control[J]. IEEE Transactions on automatic control, 1990, 35(7): 777-788.
+[5] Ji Y, Chizeck H J. Controllability, stabilizability, and continuous-time Markovian jump linear quadratic control[J]. IEEE Transactions on Automatic Control, 1990, 35(7): 777-788.
 @article{Ji:1990,
   title={Controllability, stabilizability, and continuous-time Markovian jump linear quadratic control},
   author={Ji, Yuandong and Chizeck, Howard Jay},
-  journal={IEEE Transactions on automatic control},
+  journal={IEEE Transactions on Automatic Control},
   volume={35},
   number={7},
   pages={777--788},
@@ -50,11 +50,11 @@
   publisher={IEEE}
 }
 
-[6] Feng X, Loparo K A, Ji Y, et al. Stochastic stability properties of jump linear systems[J]. IEEE transactions on Automatic Control, 1992, 37(1): 38-53.
+[6] Feng X, Loparo K A, Ji Y, et al. Stochastic stability properties of jump linear systems[J]. IEEE Transactions on Automatic Control, 1992, 37(1): 38-53.
 @article{Feng:1992,
   title={Stochastic stability properties of jump linear systems},
   author={Feng, Xiangbo and Loparo, Kenneth A and Ji, Yuandong and Chizeck, Howard Jay},
-  journal={IEEE transactions on Automatic Control},
+  journal={IEEE Transactions on Automatic Control},
   volume={37},
   number={1},
   pages={38--53},
@@ -329,11 +329,11 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Springer Science \& Business Media}
 }
 
-[32] Zhou H, Kong H, Wei L, et al. Efficient road detection and tracking for unmanned aerial vehicle[J]. IEEE transactions on intelligent transportation systems, 2014, 16(1): 297-309.
+[32] Zhou H, Kong H, Wei L, et al. Efficient road detection and tracking for unmanned aerial vehicle[J]. IEEE Transactions on Intelligent Transportation Systems, 2014, 16(1): 297-309.
 @article{Zhou:2014,
   title={{Efficient road detection and tracking for unmanned aerial vehicle}},
   author={Zhou, Hailing and Kong, Hui and Wei, Lei and Creighton, Douglas and Nahavandi, Saeid},
-  journal={IEEE transactions on intelligent transportation systems},
+  journal={IEEE Transactions on Intelligent Transportation Systems},
   volume={16},
   number={1},
   pages={297--309},
