@@ -96,11 +96,11 @@
 }
 
 [10] Wu X, Shi P, Tang Y, et al. Stability analysis of semi-Markov jump stochastic nonlinear systems[J]. IEEE Transactions on Automatic Control, 2021, 67(4): 2084-2091.
-@article{Wu:2022,
+@article{Wu:2021,
   author={Wu, Xiaotai and Shi, Peng and Tang, Yang and Mao, Shuai and Qian, Feng},
   journal={IEEE Transactions on Automatic Control}, 
   title={{Stability analysis of semi-Markov jump stochastic nonlinear systems}}, 
-  year={2022},
+  year={2021},
   volume={67},
   number={4},
   pages={2084-2091},
@@ -255,15 +255,15 @@
   publisher={IEEE}
 }
 
-[24] Sun Q, Lim C C, Shi P, et al. Design and stability of moving horizon estimator for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2018, 64(3): 1109-1124.
-@article{Sun:2018,
+[24] Sun Q, Lim C C, Shi P, et al. Design and stability of moving horizon estimator for Markov jump linear systems[J]. IEEE Transactions on Automatic Control, 2019, 64(3): 1109-1124.
+@article{Sun:2019,
   title={{Design and stability of moving horizon estimator for Markov jump linear systems}},
   author={Sun, Qing and Lim, Cheng-Chew and Shi, Peng and Liu, Fei},
   journal={IEEE Transactions on Automatic Control},
   volume={64},
   number={3},
   pages={1109--1124},
-  year={2018},
+  year={2019},
   publisher={IEEE}
 }
 
@@ -836,6 +836,14 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   url={https://api.semanticscholar.org/CorpusID:252713878}
 }
 
+[80] Cheney E W. Analysis for applied mathematics[M]. New York: Springer, 2001.
+@book{Cheney:2001,
+  title={Analysis for Applied Mathematics},
+  author={Elliott Ward Cheney},
+  year={2001},
+  publisher={Springer}
+}
+
 @book{Berteskas:1987,
   title={{Dynamic programming: deterministic and stochastic models}},
   author={Berteskas, D},
@@ -859,13 +867,6 @@ number = {3},
 pages = {657-667},
 year = {2019},
 doi = {10.1177/0142331218765610},
-}
-
-@book{Cheney:2001,
-  title={Analysis for Applied Mathematics},
-  author={Elliott Ward Cheney},
-  year={2001},
-  publisher={Springer}
 }
 
 @article{Cheng:2023,
