@@ -844,6 +844,10 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Springer}
 }
 
+[81] Bertsekas D P. Dynamic Programming and Stochastic Control[M]. Academic Press, 1976.
+
+
+[1] Bertsekas D P. Dynamic Programming: Deterministic and Stochastic Models[M]. 1987.
 @book{Berteskas:1987,
   title={{Dynamic programming: deterministic and stochastic models}},
   author={Berteskas, D},
