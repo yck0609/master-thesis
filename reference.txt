@@ -846,6 +846,28 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
 
 [81] Bertsekas D P. Dynamic Programming and Stochastic Control[M]. Academic Press, 1976.
 
+[82] Kleinman D. On an iterative technique for Riccati equation computations[J]. IEEE Transactions on Automatic Control, 1968, 13(1): 114-115.
+@article{kleinman:1968,
+  title={{On an iterative technique for Riccati equation computations}},
+  author={Kleinman, David},
+  journal={IEEE Transactions on Automatic Control},
+  volume={13},
+  number={1},
+  pages={114--115},
+  year={1968},
+  publisher={IEEE}
+}
+
+[83] Wu H N, Luo B. Simultaneous policy update algorithms for learning the solution of linear continuous-time H∞ state feedback control[J]. Information Sciences, 2013, 222: 472-485.
+@article{Wu:2013,
+  title={{Simultaneous policy update algorithms for learning the solution of linear continuous-time $H_{\infty}$ state feedback control}},
+  author={Wu, Huai-Ning and Luo, Biao},
+  journal={Information Sciences},
+  volume={222},
+  pages={472--485},
+  year={2013},
+  publisher={Elsevier}
+}
 
 [1] Bertsekas D P. Dynamic Programming: Deterministic and Stochastic Models[M]. 1987.
 @book{Berteskas:1987,
@@ -1042,17 +1064,6 @@ doi = {10.1177/0142331218765610},
   pages={63-97}
 }
 
-@article{kleinman:1968,
-  title={{On an iterative technique for Riccati equation computations}},
-  author={Kleinman, David},
-  journal={IEEE Transactions on Automatic Control},
-  volume={13},
-  number={1},
-  pages={114--115},
-  year={1968},
-  publisher={IEEE}
-}
-
 [51] Fragoso M D, Costa O L V. A separation principle for the continuous-time LQ-problem with Markovian jump parameters[J]. IEEE Transactions on Automatic Control, 2010, 55(12): 2692-2707.
 @article{Fragoso:2010,
   title={A separation principle for the continuous-time LQ-problem with Markovian jump parameters},
@@ -1207,16 +1218,6 @@ doi = {10.1177/0142331218765610},
   pages={2676--2681},
   year={1991},
   organization={IEEE}
-}
-
-@article{Wu:2013,
-  title={{Simultaneous policy update algorithms for learning the solution of linear continuous-time $H_{\infty}$ state feedback control}},
-  author={Wu, Huai-Ning and Luo, Biao},
-  journal={Information Sciences},
-  volume={222},
-  pages={472--485},
-  year={2013},
-  publisher={Elsevier}
 }
 
 @article{Xiao:2005,
