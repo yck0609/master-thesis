@@ -869,6 +869,18 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Elsevier}
 }
 
+[84] Zhang L, Boukas E K. Stability and stabilization of Markovian jump linear systems with partly unknown transition probabilities[J]. Automatica, 2009, 45(2): 463-468.
+@article{zhang:2009,
+  title={{Stability and stabilization of Markovian jump linear systems with partly unknown transition probabilities}},
+  author={Zhang, Lixian and Boukas, El-K{\'e}bir},
+  journal={Automatica},
+  volume={45},
+  number={2},
+  pages={463--468},
+  year={2009},
+  publisher={Elsevier}
+}
+
 [1] Bertsekas D P. Dynamic Programming: Deterministic and Stochastic Models[M]. 1987.
 @book{Berteskas:1987,
   title={{Dynamic programming: deterministic and stochastic models}},
@@ -1267,17 +1279,6 @@ doi = {10.1177/0142331218765610},
   author={Zeidler, E},
   year={1986},
   publisher={Springer}
-}
-
-@article{zhang:2009,
-  title={{Stability and stabilization of Markovian jump linear systems with partly unknown transition probabilities}},
-  author={Zhang, Lixian and Boukas, El-K{\'e}bir},
-  journal={Automatica},
-  volume={45},
-  number={2},
-  pages={463--468},
-  year={2009},
-  publisher={Elsevier}
 }
 
 @mastersthesis{Zhang:2014,
