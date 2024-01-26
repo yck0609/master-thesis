@@ -881,6 +881,15 @@ keywords = {Bayesian estimation, Smoothing, Jump Markov linear systems (JMLS), S
   publisher={Elsevier}
 }
 
+[85] Oliveira R C L F, Vargas A N, do Val J B R, et al. Mode-Independent H_2-Control of a DC Motor Modeled as a Markov Jump Linear System[J]. IEEE Transactions on Control Systems Technology, 2014, 22(5): 1915-1919.@article{Oliveira:2014,
+  title={{Mode-independent  $\mathscr{H}_{2}$-control of a DC motor modeled as a Markov jump linear system}},
+  author={Ricardo C.L.F. Oliveira and Alessandro N. Vargas and Jo{\~a}o Bosco Ribeiro {do Val} and Pedro Luis Dias Peres},
+  journal={IEEE Transactions on Control Systems Technology},
+  year={2014},
+  volume={22},
+  pages={1915-1919}
+}
+
 [1] Bertsekas D P. Dynamic Programming: Deterministic and Stochastic Models[M]. 1987.
 @book{Berteskas:1987,
   title={{Dynamic programming: deterministic and stochastic models}},
@@ -1096,15 +1105,6 @@ doi = {10.1177/0142331218765610},
   number={10},
   pages={5093-5108},
   year={2008},
-}
-
-@article{Oliveira:2014,
-  title={{Mode-independent  $\mathscr{H}_{2}$-control of a DC motor modeled as a Markov jump linear system}},
-  author={Ricardo C.L.F. Oliveira and Alessandro N. Vargas and Jo{\~a}o Bosco Ribeiro {do Val} and Pedro Luis Dias Peres},
-  journal={IEEE Transactions on Control Systems Technology},
-  year={2014},
-  volume={22},
-  pages={1915-1919}
 }
 
 @ARTICLE{Shen:2022-1,
