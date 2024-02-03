@@ -6,7 +6,7 @@ clear all
 modes = 3; %系统模态数量
 A(:,:,1) = [-0.4799 5.1546 0;-3.8162 14.4723 0;0.1399 0 -0.9925]; %被控系统状态方程状态转移矩阵
 A(:,:,2) = [-1.6026 9.1632 0;-0.5918 3.0317 0;0.0740 0 -0.4338];
-A(:,:,3) = [0.6436 0.9178 0;-0.5056 2.4811 0;0.3865 0 0.0982];
+A(:,:,3) = [0.6439 0.9178 0;-0.5056 2.4811 0;0.3865 0 0.0982];
 
 B(:,:,1) = [5.8705 15.5010 0]'; %被控系统状态方程控制输入增益矩阵
 B(:,:,2) = [10.2851 2.2282 0]';
@@ -93,29 +93,6 @@ theta = 4.55; %H无穷控制L2增益
 theta_filtering = 3.60; %H无穷滤波L2增益
 
 %% 控制器求解
-%% LQR控制器迭代参数
-P_LQR = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); % 给定解的初始值
-sigmma_P_LQR = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); %定义按概率加权求和矩阵
-K_u_LQR(:,:,:) = zeros(B_col,A_row+hat_A_row,modes);  % 给定控制增益K_u_LQR的初始值
-norm_LQR = 0;
-episodes_LQR = 1000; %给定LQR控制器求解迭代次数
-
-for episode_LQR = 1:episodes_LQR
-    for mode = 1:modes
-        sigmma_P_LQR(:,:,mode) = Pr(mode,1)*P_LQR(:,:,1) + Pr(mode,2)*P_LQR(:,:,2) + Pr(mode,3)*P_LQR(:,:,3); %由当前P构造sigmma_P
-        P_LQR(:,:,mode) = tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_LQR(:,:,mode)*tilde_A(:,:,mode) - (tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_LQR(:,:,mode)*tilde_B(:,:,mode))*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_LQR(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_LQR(:,:,mode)*tilde_A(:,:,mode));
-    end
-    norm_LQR(episode_LQR) = trace(P_LQR(:,:,1)'*P_LQR(:,:,1) + P_LQR(:,:,2)'*P_LQR(:,:,2) + P_LQR(:,:,3)'*P_LQR(:,:,3));
-end
-
-for mode = 1:modes
-    sigmma_P_LQR(:,:,mode) = Pr(mode,1)*P_LQR(:,:,1) + Pr(mode,2)*P_LQR(:,:,2) + Pr(mode,3)*P_LQR(:,:,3);  %计算按概率加权求和的P
-    K_u_LQR(:,:,mode) = -inv(gamma*tilde_B(:,:,mode)'*sigmma_P_LQR(:,:,mode)*tilde_B(:,:,mode) + R(mode))*(D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_LQR(:,:,mode)*tilde_A(:,:,mode));
-end
-
-figure(1)
-plot(0:1:(episodes_LQR-1),norm_LQR)
-
 %% H无穷控制器迭代参数
 P_H = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); % 给定解的初始值
 sigmma_P_H = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); %定义按概率加权求和矩阵
