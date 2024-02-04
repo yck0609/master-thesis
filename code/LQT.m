@@ -41,7 +41,7 @@ Q(:,:,1) = 10*eye(C_row); %系统跟踪误差权重矩阵
 Q(:,:,2) = 10*eye(C_row);
 Q(:,:,3) = 10*eye(C_row);
 
-R = 0.2*[1 1 1];  %系统控制输入权重矩阵
+R = 0.5*[1 1 1];  %系统控制输入权重矩阵
 
 gamma = 0.99;  %衰减因子gamma
 
@@ -80,10 +80,10 @@ norm_S_1_episode = [];
 norm_S_2_episode = [];
 norm_S_3_episode = [];
 
-Gamma_episode = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
-Upsilon_episode = zeros(A_row+hat_A_row+B_col,A_row+hat_A_row+B_col,modes);
+Gamma = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
+Upsilon = zeros(A_row+hat_A_row+B_col,A_row+hat_A_row+B_col,modes);
 
-episodes = 101; %给定迭代次数
+episodes = 21; %给定迭代次数
 
 %% 求解H无穷控制器
 norm_P_1_episode(1) = trace(P(:,:,1)'*P(:,:,1));
@@ -96,8 +96,8 @@ norm_S_3_episode(1) = trace(S_u(:,:,3)'*S_u(:,:,3));
 for episode = 1:episodes
     episode
     for mode = 1:modes %基于K_u以及K_w求解P
-        Gamma_episode(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*S_u(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
-        Upsilon_episode(:,:,mode) = [tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode); D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode) D(mode)'*Q(:,:,mode)*D(mode)+R(mode)];
+        Gamma(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*S_u(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
+        Upsilon(:,:,mode) = [tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode); D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode) D(mode)'*Q(:,:,mode)*D(mode)+R(mode)];
         S_episode(:,:,mode) = [eye(A_row+hat_A_row);S_u(:,:,mode)];
     end
     
@@ -106,7 +106,7 @@ for episode = 1:episodes
     while n < 150  %进行耦合Lyapunov方程的求解
         for mode = 1:modes   %对三个模态进行迭代求解
             sigmma_V(:,:,mode) = Pr(mode,1)*V(:,:,1) + Pr(mode,2)*V(:,:,2) + Pr(mode,3)*V(:,:,3); %计算按概率加权求和的P
-            V(:,:,mode) = Gamma_episode(:,:,mode)'*sigmma_V(:,:,mode)*Gamma_episode(:,:,mode) + S_episode(:,:,mode)'*Upsilon_episode(:,:,mode)*S_episode(:,:,mode);  % 迭代求解P
+            V(:,:,mode) = Gamma(:,:,mode)'*sigmma_V(:,:,mode)*Gamma(:,:,mode) + S_episode(:,:,mode)'*Upsilon(:,:,mode)*S_episode(:,:,mode);  % 迭代求解P
             V(:,:,mode) = (V(:,:,mode)' + V(:,:,mode))/2;
         end
         n = n + 1;
@@ -146,7 +146,7 @@ S_u_optimal = S_u; %给定控制器的最优值
 S_optimal = S;
 
 %% 画图
-figure(2)
+figure(1)
 plot(0:1:(episodes-1),norm_P_1_episode(1:episodes),'--','Color','b','LineWidth',1.5)
 hold on
 plot(0:1:(episodes-1),norm_P_2_episode(1:episodes),'-.','Color','r','LineWidth',1.5)
@@ -160,7 +160,7 @@ ylabel('$log(\left\|P_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:20:200])
 set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 
-figure(3)
+figure(2)
 plot(0:1:(episodes-1),norm_S_1_episode(1:episodes),'--','Color','b','LineWidth',1.5)
 hold on
 plot(0:1:(episodes-1),norm_S_2_episode(1:episodes),'-.','Color','r','LineWidth',1.5)
@@ -173,37 +173,36 @@ xticks([0:(episodes-1)/10:(episodes-1)])
 ylabel('$log(\left\|K_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:10:100])
 set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
-annotation(figure(3),'ellipse',[0.7015625 0.311320754716981 0.0427083333333333 0.0451215932914054]); % 创建 ellipse
-annotation(figure(3),'arrow',[0.7 0.646354166666667],[0.362683438155136 0.419287211740042]); % 创建 arrow
+annotation(figure(2),'ellipse',[0.7015625 0.311320754716981 0.0427083333333333 0.0451215932914054]); % 创建 ellipse
+annotation(figure(2),'arrow',[0.7 0.646354166666667],[0.362683438155136 0.419287211740042]); % 创建 arrow
 
 %% TP未知下求解H无穷控制器迭代参数
 sigmma_P_TD(:,:,:) = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
 sigmma_V_TD(:,:,:) = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
 
 %给定初始镇定控制器
-K_u_TD = S_u_initial;
-K_w_TD(:,:,:) = zeros(F_col + hat_F_col,A_row+hat_A_row,modes);  % 给定噪声增益K_w的初始值
+S_u_TD = S_u_initial;
 
 %给定初始镇定噪声增益
-K_TD(:,:,1) = [eye(A_row+hat_A_row);K_u_TD(:,:,1);K_w_TD(:,:,1)];
-K_TD(:,:,2) = [eye(A_row+hat_A_row);K_u_TD(:,:,2);K_w_TD(:,:,2)];
-K_TD(:,:,3) = [eye(A_row+hat_A_row);K_u_TD(:,:,3);K_w_TD(:,:,3)];
+S_TD(:,:,1) = [eye(A_row+hat_A_row);S_u_TD(:,:,1)];
+S_TD(:,:,2) = [eye(A_row+hat_A_row);S_u_TD(:,:,2)];
+S_TD(:,:,3) = [eye(A_row+hat_A_row);S_u_TD(:,:,3)];
 
 Gamma_TD = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
-Upsilon_TD = zeros(A_row+hat_A_row+B_col+F_col+hat_F_col,A_row+hat_A_row+B_col+F_col+hat_F_col,modes);
+Upsilon_TD = zeros(A_row+hat_A_row+B_col,A_row+hat_A_row+B_col,modes);
 
 delta_sigmma_P_TD = [0 0 0]; %用于储存sigmma_P距离最优的差值
-delta_K_TD = [0 0 0]; %用于储存K_u距离最优的差值
+delta_S_TD = [0 0 0]; %用于储存K_u距离最优的差值
 
 episodes_TD = 51; %定义迭代的幕数
-steps_TD = 100; %定义每一幕的步数
-mu = 0.09; %定义回报权重
+steps_TD = 200; %定义每一幕的步数
+mu = 0.10; %定义回报权重
 
 %% TP未知下求解H无穷控制器
 for mode = 1:modes
-    Gamma_TD(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode)+tilde_B(:,:,mode)*K_u_TD(:,:,mode)+tilde_F(:,:,mode)*K_w_TD(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
-    delta_sigmma_P_TD(1,mode,1) = log(1+(trace((sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_optimal(:,:,mode)'*sigmma_P_optimal(:,:,mode))));
-    delta_K_TD(1,mode,1) = log(1+(trace((K_optimal(:,:,mode)-K_TD(:,:,mode))'*(K_optimal(:,:,mode)-K_TD(:,:,mode))))/(trace(K_optimal(:,:,mode)'*K_optimal(:,:,mode))));
+    Gamma_TD(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*S_u_TD(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
+    delta_sigmma_P_TD(1,mode) = log(1+(trace((sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_optimal(:,:,mode)'*sigmma_P_optimal(:,:,mode))));
+    delta_S_TD(1,mode) = log(1+(trace((S_optimal(:,:,mode)-S_TD(:,:,mode))'*(S_optimal(:,:,mode)-S_TD(:,:,mode))))/(trace(S_optimal(:,:,mode)'*S_optimal(:,:,mode))));
 end
 
 for episode_TD = 1:episodes_TD
@@ -219,11 +218,9 @@ for episode_TD = 1:episodes_TD
             mode_old = mode_now; %储存当前模态
             mode_now = randsrc(1,1,[1 2 3;Pr(mode_old,:)]); %基于转移概率更新模态
             
-            Gamma_TD(:,:,mode_now) = sqrt(gamma)*(tilde_A(:,:,mode_now)+tilde_B(:,:,mode_now)*K_u_TD(:,:,mode_now)+tilde_F(:,:,mode_now)*K_w_TD(:,:,mode_now));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
-            Upsilon_TD(:,:,mode_now) = [tilde_C(:,:,mode_now)'*Q(:,:,mode_now)*tilde_C(:,:,mode_now) tilde_C(:,:,mode_now)'*Q(:,:,mode_now)*D(mode_now) tilde_C(:,:,mode_now)'*Q(:,:,mode_now)*tilde_H(:,:,mode_now); ...
-                D(mode_now)'*Q(:,:,mode_now)*tilde_C(:,:,mode_now) D(mode_now)'*Q(:,:,mode_now)*D(mode_now)+R(mode_now) D(mode_now)'*Q(:,:,mode_now)*tilde_H(:,:,mode_now); ...
-                tilde_H(:,:,mode_now)'*Q(:,:,mode_now)*tilde_C(:,:,mode_now) tilde_H(:,:,mode_now)'*Q(:,:,mode_now)*D(mode_now) tilde_H(:,:,mode_now)'*Q(:,:,mode_now)*tilde_H(:,:,mode_now)-theta^(2)*eye(F_col + hat_F_col)];
-            K_TD(:,:,mode_now) = [eye(A_row+hat_A_row);K_u_TD(:,:,mode_now);K_w_TD(:,:,mode_now)];
+            Gamma_TD(:,:,mode_now) = sqrt(gamma)*(tilde_A(:,:,mode_now)+tilde_B(:,:,mode_now)*S_u_TD(:,:,mode_now));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
+            Upsilon_TD(:,:,mode_now) = [tilde_C(:,:,mode_now)'*Q(:,:,mode_now)*tilde_C(:,:,mode_now) tilde_C(:,:,mode_now)'*Q(:,:,mode_now)*D(mode_now);D(mode_now)'*Q(:,:,mode_now)*tilde_C(:,:,mode_now) D(mode_now)'*Q(:,:,mode_now)*D(mode_now)+R(mode_now)];
+            S_TD(:,:,mode_now) = [eye(A_row+hat_A_row);S_u_TD(:,:,mode_now)];
             
             if step_test == 1
                 Lambda(:,:,mode) = eye(A_row+hat_A_row); %定义Lambda矩阵
@@ -231,29 +228,17 @@ for episode_TD = 1:episodes_TD
                 Lambda(:,:,mode) = Gamma_TD(:,:,mode_old)*Lambda(:,:,mode); %更新Lambda矩阵
             end
             
-            TD = Lambda(:,:,mode)'*(Gamma_TD(:,:,mode_now)'*sigmma_V_TD(:,:,mode_now)*Gamma_TD(:,:,mode_now)+K_TD(:,:,mode_now)'*Upsilon_TD(:,:,mode_now)*K_TD(:,:,mode_now)-sigmma_V_TD(:,:,mode_old))*Lambda(:,:,mode);
-            
+            TD = Lambda(:,:,mode)'*(Gamma_TD(:,:,mode_now)'*sigmma_V_TD(:,:,mode_now)*Gamma_TD(:,:,mode_now)+S_TD(:,:,mode_now)'*Upsilon_TD(:,:,mode_now)*S_TD(:,:,mode_now)-sigmma_V_TD(:,:,mode_old))*Lambda(:,:,mode);
             TD_sum = TD_sum + mu^(step_test-1)*TD; %进行第step步的sigmma_P更新
         end
         sigmma_P_TD(:,:,mode) = sigmma_V_TD(:,:,mode) + lambda*TD_sum; %进行第step步的sigmma_P更新
-        K_u_TD(:,:,mode) = inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode)+R(mode)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))') ...
-            *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode))');
-        K_w_TD(:,:,mode) = inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col+hat_F_col)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))) ...
-            *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))');
+        S_u_TD(:,:,mode) = -inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_A(:,:,mode));
     end
     for mode = 1:modes
-        delta_sigmma_P_TD(1,mode,episode_TD+1) = log(1+(trace((sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_optimal(:,:,mode)'*sigmma_P_optimal(:,:,mode))));
-        delta_K_TD(1,mode,episode_TD+1) = log(1+(trace((K_optimal(:,:,mode)-K_TD(:,:,mode))'*(K_optimal(:,:,mode)-K_TD(:,:,mode))))/(trace(K_optimal(:,:,mode)'*K_optimal(:,:,mode))));
+        delta_sigmma_P_TD(1,mode,episode_TD+1) = log(1 + (trace((sigmma_P_optimal(:,:,mode) - sigmma_P_TD(:,:,mode))'*(sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_optimal(:,:,mode)'*sigmma_P_optimal(:,:,mode))));
+        delta_S_TD(1,mode,episode_TD + 1) = log(1 + (trace((S_optimal(:,:,mode) - S_TD(:,:,mode))'*(S_optimal(:,:,mode) - S_TD(:,:,mode))))/(trace(S_optimal(:,:,mode)'*S_optimal(:,:,mode))));
     end
 end
-
-for i = 1:modes
-    P_TD(:,:,i) = tilde_C(:,:,i)'*Q(:,:,i)*tilde_C(:,:,i)+gamma*tilde_A(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_A(:,:,i)-[(tilde_C(:,:,i)'*Q(:,:,i)*D(i)+gamma*tilde_A(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_B(:,:,i)) tilde_C(:,:,i)'*Q(:,:,i)*tilde_H(:,:,i)+gamma*tilde_A(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_F(:,:,i)]*inv([(gamma*tilde_B(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_B(:,:,i)+R(i)+D(i)'*Q(:,:,i)*D(i)) (D(i)'*Q(:,:,i)*tilde_H(:,:,i) + gamma*tilde_B(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_F(:,:,i));(D(i)'*Q(:,:,i)*tilde_H(:,:,i) + gamma*tilde_B(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_F(:,:,i))' (tilde_H(:,:,i)'*Q(:,:,i)*tilde_H(:,:,i)+gamma*tilde_F(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_F(:,:,i)-theta^(2)*eye(F_col + hat_F_col))])*[(tilde_C(:,:,i)'*Q(:,:,i)*D(i)+gamma*tilde_A(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_B(:,:,i)) tilde_C(:,:,i)'*Q(:,:,i)*tilde_H(:,:,i)+gamma*tilde_A(:,:,i)'*sigmma_P_TD(:,:,i)*tilde_F(:,:,i)]';
-end
-for i = 1:modes
-    delta_TD(:,:,i) = sigmma_P_TD(:,:,i)-Pr(i,1)*P_TD(:,:,1)-Pr(i,2)*P_TD(:,:,2)-Pr(i,3)*P_TD(:,:,3);
-end
-delta_TD_norm = trace(delta_TD(:,:,1)'*delta_TD(:,:,1)+delta_TD(:,:,2)'*delta_TD(:,:,2)+delta_TD(:,:,3)'*delta_TD(:,:,3))
 
 delta_sigmma_P1 = delta_sigmma_P_TD(1,1,:);
 delta_sigmma_P1 = delta_sigmma_P1(:);  %通过（：）将多维数组变为一维数组
@@ -262,14 +247,14 @@ delta_sigmma_P2 = delta_sigmma_P2(:);
 delta_sigmma_P3 = delta_sigmma_P_TD(1,3,:);
 delta_sigmma_P3 = delta_sigmma_P3(:);
 
-delta_K_TD_1 = delta_K_TD(1,1,:);
-delta_K_TD_1 = delta_K_TD_1(:);  %通过（：）将多维数组变为一维数组
-delta_K_TD_2 = delta_K_TD(1,2,:);
-delta_K_TD_2 = delta_K_TD_2(:);
-delta_K_TD_3 = delta_K_TD(1,3,:);
-delta_K_TD_3 = delta_K_TD_3(:);
+delta_S_TD_1 = delta_S_TD(1,1,:);
+delta_S_TD_1 = delta_S_TD_1(:);  %通过（：）将多维数组变为一维数组
+delta_S_TD_2 = delta_S_TD(1,2,:);
+delta_S_TD_2 = delta_S_TD_2(:);
+delta_S_TD_3 = delta_S_TD(1,3,:);
+delta_S_TD_3 = delta_S_TD_3(:);
 
-figure(4)
+figure(3)
 plot(0:1:(episodes_TD-1),delta_sigmma_P1(1:episodes_TD),'--','Color','b',"LineWidth",1.5)
 hold on
 plot(0:1:(episodes_TD-1),delta_sigmma_P2(1:episodes_TD),'-.','Color','r',"LineWidth",1.5)
@@ -284,12 +269,12 @@ xticks([0:10:episodes_TD-1])
 % yticks([0:0.1:0.8])
 set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 
-figure(5)
-plot(0:1:(episodes_TD-1),delta_K_TD_1(1:episodes_TD),'--','Color','b',"LineWidth",1.5)
+figure(4)
+plot(0:1:(episodes_TD-1),delta_S_TD_1(1:episodes_TD),'--','Color','b',"LineWidth",1.5)
 hold on
-plot(0:1:(episodes_TD-1),delta_K_TD_2(1:episodes_TD),'-.','Color','r',"LineWidth",1.5)
+plot(0:1:(episodes_TD-1),delta_S_TD_2(1:episodes_TD),'-.','Color','r',"LineWidth",1.5)
 hold on
-plot(0:1:(episodes_TD-1),delta_K_TD_3(1:episodes_TD),'Color','g',"LineWidth",1.5)
+plot(0:1:(episodes_TD-1),delta_S_TD_3(1:episodes_TD),'Color','g',"LineWidth",1.5)
 legend('$\delta^{(l)}_{1}$','$\delta^{(l)}_{2}$','$\delta^{(l)}_{3}$','Interpreter','latex','Position', ...
     [0.691145833333333 0.212788259958072 0.188194444444442 0.205170875242091]); %legend在坐标区上添加图例
 xlabel('$Iteration$','interpreter','latex')
@@ -298,3 +283,65 @@ axis([0 episodes_TD-1 -0.0005 0.040])
 xticks([0:10:episodes_TD-1])
 % yticks([0:0.00005:0.0004])
 set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
+
+%% 进行控制器测试
+%% 系统模拟仿真参数
+episodes_test = 1; %给定迭代次数
+steps_test = 150; % 运行步长
+
+% 被控系统参数
+x = [0 0 0]';
+u = zeros(1);
+z = [];
+
+% 被跟踪系统参数
+hat_x = [10 -10 0]'; 
+hat_z = [hat_C*hat_x];
+
+% 增广系统参数
+tilde_x = [x' hat_x']';
+tilde_z = [0];
+
+%% 系统模拟仿真参数处于TD控制器
+% 被控系统参数
+x_TD = [0 0 0]';
+u_TD = zeros(1);
+z_TD = [];
+
+% 增广系统参数
+tilde_x_TD = [x_TD' hat_x']';
+tilde_z_TD = [0];
+
+%% 仿真跟踪系统
+mode_now = randsrc(1,1,[1 2 3;1/3 1/3 1/3]);
+for step_test = 1:steps_test
+    mode_old = mode_now; %储存当前模态
+    mode_now = randsrc(1,1,[1 2 3;Pr(mode_old,:)]); %基于转移概率更新模态
+
+    u(:,step_test) = S_u(:,:, mode_now)*tilde_x(:,step_test); %基于当前控制器给出反馈控制律
+    u_TD(:,step_test) = S_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
+
+    tilde_x(:,step_test+1) = tilde_A(:,:,mode_now)*tilde_x(:,step_test) + tilde_B(:,:,mode_now)*u(:,step_test); %基于当前模态以及反馈控制器更新状态
+    tilde_x_TD(:,step_test+1) = tilde_A(:,:,mode_now)*tilde_x_TD(:,step_test) + tilde_B(:,:,mode_now)*u_TD(:,step_test);
+
+    tilde_z(:,step_test) = tilde_C(:,:,mode_now)*tilde_x(:,step_test) + D(mode_now)*u(:,step_test); %基于当前模态以及反馈控制器、状态更新跟踪误差
+    tilde_z_TD(:,step_test) = tilde_C(:,:,mode_now)*tilde_x_TD(:,step_test) + D(mode_now)*u_TD(:,step_test) ;
+
+    z(:,step_test) = C(:,:,mode_now)*tilde_x(1:A_row,step_test) + D(mode_now)*u(:,step_test); %基于当前模态以及反馈控制器、状态更新输出
+    z_TD(:,step_test) = C(:,:,mode_now)*tilde_x_TD(1:A_row,step_test) + D(mode_now)*u_TD(:,step_test);
+    hat_z(:,step_test) = hat_C*tilde_x(A_row+1:A_row+hat_A_row,step_test);
+end
+
+figure(5)
+plot(1:1:(steps_test),z(1,1:steps_test),'--','Color','r',"LineWidth",1)
+hold on
+plot(1:1:(steps_test),z_TD(1,1:steps_test),'-.','Color','g',"LineWidth",1)
+hold on
+plot(1:1:(steps_test),hat_z(1,1:steps_test),'Color','k',"LineWidth",1)
+legend('$z_H$','$z_{TD}$','$\hat{z}$','Interpreter','latex','Position',[0.756235532407406 0.445595077077051 0.125014467592594 0.147696327535109]);
+xlabel('$Steps$','interpreter','latex')
+ylabel('$z$ and $\hat{z}$','interpreter','latex')
+axis([1 steps_test -10 6])
+xticks([0:10:steps_test])
+yticks([-10:2:6])
+set(gca,"FontName","Times New Roman","FontSize",36,"LineWidth",0.5);

@@ -6,15 +6,15 @@ clear all
 modes = 3; %系统模态数量
 A(:,:,1) = [-0.4799 5.1546 0;-3.8162 14.4723 0;0.1399 0 -0.9925]; %被控系统状态方程状态转移矩阵
 A(:,:,2) = [-1.6026 9.1632 0;-0.5918 3.0317 0;0.0740 0 -0.4338];
-A(:,:,3) = [0.6439 0.9178 0;-0.5056 2.4811 0;0.3865 0 0.0982];
+A(:,:,3) = [0.6436 0.9178 0;-0.5056 2.4811 0;0.3865 0 0.0982];
 
 B(:,:,1) = [5.8705 15.5010 0]'; %被控系统状态方程控制输入增益矩阵
 B(:,:,2) = [10.2851 2.2282 0]';
 B(:,:,3) = [0.7874 1.5302 0]';
 
-F(:,:,1) = [0.10 0 0;0 0.10 0;0 0 0.10]; %被控系统状态方程噪声增益矩阵
-F(:,:,2) = [0.10 0 0;0 0.10 0;0 0 0.10];
-F(:,:,3) = [0.10 0 0;0 0.10 0;0 0 0.10];
+F(:,:,1) = [0.10 0 0;0.10 0 0;0.10 0 0]; %被控系统状态方程噪声增益矩阵
+F(:,:,2) = [0.10 0 0;0.10 0 0;0.10 0 0];
+F(:,:,3) = [0.10 0 0;0.10 0 0;0.10 0 0];
 
 C(:,:,1) = [1.0230 2.1100 0.9500]; %被控系统输出方程输出矩阵
 C(:,:,2) = [0.9800 2.0500 1.1000];
@@ -86,132 +86,136 @@ Q(:,:,1) = 10*eye(C_row); %系统跟踪误差权重矩阵
 Q(:,:,2) = 10*eye(C_row);
 Q(:,:,3) = 10*eye(C_row);
 
-R = 0.02*[1 1 1];  %系统控制输入权重矩阵
+R = 0.2*[1 1 1];  %系统控制输入权重矩阵
 
 gamma = 0.99;  %衰减因子gamma
-theta = 4.55; %H无穷控制L2增益
+theta = 5.35; %H无穷控制L2增益
 theta_filtering = 3.60; %H无穷滤波L2增益
 
 %% 控制器求解
 %% H无穷控制器迭代参数
-P_H = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); % 给定解的初始值
-sigmma_P_H = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); %定义按概率加权求和矩阵
-sigmma_V_H = zeros(A_row + hat_A_row,A_row + hat_A_row,modes);
+P = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); % 给定解的初始值
+sigmma_P = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); %定义按概率加权求和矩阵
+sigmma_V = zeros(A_row + hat_A_row,A_row + hat_A_row,modes);
 
-% K_u_H(:,:,1) = [0.1910  -0.9150   0.0320   0.0380   0.0360   0.0370];
-% K_u_H(:,:,2) = [0.1700  -0.9900   0.0260   0.0690   0.0630   0.0680];
-% K_u_H(:,:,3) = [0.0730  -1.4850   0.0050   0.2100   0.1900   0.2100];
+K_u_initial(:,:,1) = [0.250  -0.850   0.050   0.050   0.050   0.050];
+K_u_initial(:,:,2) = [0.201  -1.502   0.100   0.100   0.000   0.100];
+K_u_initial(:,:,3) = [0.100  -0.998   0.100   0.100   0.100   0.100];
 
-K_u_H = K_u_LQR; % 将LQR控制器作为迭代初始值
-K_w_H(:,:,:) = zeros(F_col + hat_F_col,A_row+hat_A_row,modes);  % 给定噪声增益K_w的初始值
+K_u = K_u_initial; % 将LQR控制器作为迭代初始值
+K_w(:,:,:) = zeros(F_col + hat_F_col,A_row+hat_A_row,modes);  % 给定噪声增益K_w的初始值
 
-K_H(:,:,1) = [eye(A_row+hat_A_row);K_u_H(:,:,1);K_w_H(:,:,1)];
-K_H(:,:,2) = [eye(A_row+hat_A_row);K_u_H(:,:,2);K_w_H(:,:,2)];
-K_H(:,:,3) = [eye(A_row+hat_A_row);K_u_H(:,:,3);K_w_H(:,:,3)];
+K(:,:,1) = [eye(A_row+hat_A_row);K_u(:,:,1);K_w(:,:,1)];
+K(:,:,2) = [eye(A_row+hat_A_row);K_u(:,:,2);K_w(:,:,2)];
+K(:,:,3) = [eye(A_row+hat_A_row);K_u(:,:,3);K_w(:,:,3)];
 
-P_H_episode = zeros(A_row+hat_A_row,A_row+hat_A_row,modes); % 记录迭代过程中每一幕P的值
-K_H_episode = zeros(A_row+hat_A_row+B_col+F_col+hat_F_col,A_row+hat_A_row,modes);
+P_episode = zeros(A_row+hat_A_row,A_row+hat_A_row,modes); % 记录迭代过程中每一幕P的值
+K_episode = zeros(A_row+hat_A_row+B_col+F_col+hat_F_col,A_row+hat_A_row,modes);
 
-norm_P_H_1_episode = [];  %记录解矩阵P的2范数每一幕的变化
-norm_P_H_2_episode = [];
-norm_P_H_3_episode = [];
-norm_K_H_1_episode = [];
-norm_K_H_2_episode = [];
-norm_K_H_3_episode = [];
+delta = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
 
-Gamma_H = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
-Upsilon_H = zeros(A_row+hat_A_row+B_col+F_col+hat_F_col,A_row+hat_A_row+B_col+F_col+hat_F_col,modes);
+norm_P_1_episode = [];  %记录解矩阵P的2范数每一幕的变化
+norm_P_2_episode = [];
+norm_P_3_episode = [];
+norm_K_1_episode = [];
+norm_K_2_episode = [];
+norm_K_3_episode = [];
 
-episodes_H = 11; %给定迭代次数
+Gamma = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
+Upsilon = zeros(A_row+hat_A_row+B_col+F_col+hat_F_col,A_row+hat_A_row+B_col+F_col+hat_F_col,modes);
 
-norm_P_H_1_episode(1) = trace(P_H(:,:,1)'*P_H(:,:,1));
-norm_P_H_2_episode(1) = trace(P_H(:,:,2)'*P_H(:,:,2));
-norm_P_H_3_episode(1) = trace(P_H(:,:,3)'*P_H(:,:,3));
-norm_K_H_1_episode(1) = trace(K_H(:,:,1)'*K_H(:,:,1));
-norm_K_H_2_episode(1) = trace(K_H(:,:,2)'*K_H(:,:,2));
-norm_K_H_3_episode(1) = trace(K_H(:,:,3)'*K_H(:,:,3));
+episodes = 41; %给定迭代次数
 
-for episode_H = 1:episodes_H
-    episode_H
+norm_P_1_episode(1) = trace(P(:,:,1)'*P(:,:,1));
+norm_P_2_episode(1) = trace(P(:,:,2)'*P(:,:,2));
+norm_P_3_episode(1) = trace(P(:,:,3)'*P(:,:,3));
+norm_K_1_episode(1) = trace(K(:,:,1)'*K(:,:,1));
+norm_K_2_episode(1) = trace(K(:,:,2)'*K(:,:,2));
+norm_K_3_episode(1) = trace(K(:,:,3)'*K(:,:,3));
+
+for episode = 1:episodes
+    episode
     for mode = 1:modes %基于K_u以及K_w求解P
-        Gamma_H(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*K_u_H(:,:,mode) + tilde_F(:,:,mode)*K_w_H(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
-        Upsilon_H(:,:,mode) = [tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode); ...
+        Gamma(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*K_u(:,:,mode) + tilde_F(:,:,mode)*K_w(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
+        Upsilon(:,:,mode) = [tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode); ...
             D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode) D(mode)'*Q(:,:,mode)*D(mode)+R(mode) D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode); ...
             tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) tilde_H(:,:,mode)'*Q(:,:,mode)*D(mode) tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)-theta^(2)*eye(F_col + hat_F_col)];
-        K_H_episode(:,:,mode) = [eye(A_row+hat_A_row);K_u_H(:,:,mode);K_w_H(:,:,mode)];
+        K_episode(:,:,mode) = [eye(A_row+hat_A_row);K_u(:,:,mode);K_w(:,:,mode)];
     end
     
     n = 1;
-    V_H = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
-    while n < 200  %进行耦合Lyapunov方程的求解
+    V = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
+    while n < 150  %进行耦合Lyapunov方程的求解
         for mode = 1:modes   %对三个模态进行迭代求解
-            sigmma_V_H(:,:,mode) = Pr(mode,1)*V_H(:,:,1)+Pr(mode,2)*V_H(:,:,2)+Pr(mode,3)*V_H(:,:,3); %计算按概率加权求和的P
-            V_H(:,:,mode) = Gamma_H(:,:,mode)'*sigmma_V_H(:,:,mode)*Gamma_H(:,:,mode) + K_H_episode(:,:,mode)'*Upsilon_H(:,:,mode)*K_H_episode(:,:,mode);  % 迭代求解P
+            sigmma_V(:,:,mode) = Pr(mode,1)*V(:,:,1) + Pr(mode,2)*V(:,:,2) + Pr(mode,3)*V(:,:,3); %计算按概率加权求和的P
+            V(:,:,mode) = Gamma(:,:,mode)'*sigmma_V(:,:,mode)*Gamma(:,:,mode) + K_episode(:,:,mode)'*Upsilon(:,:,mode)*K_episode(:,:,mode);  % 迭代求解P
         end
         n = n + 1;
     end
-    P_H = V_H;
+    P = V;
     
     for mode = 1:modes %基于求解的P更新K_u以及K_w
-        sigmma_P_H(:,:,mode) = Pr(mode,1)*P_H(:,:,1)+Pr(mode,2)*P_H(:,:,2)+Pr(mode,3)*P_H(:,:,3);  %计算按概率加权求和的P
-        
-        K_u_H(:,:,mode) = inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))') ...
-            *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode))');
-        K_w_H(:,:,mode) = inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col+hat_F_col)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))) ...
-            *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))');
-        K_H(:,:,mode) = [eye(A_row+hat_A_row);K_u_H(:,:,mode);K_w_H(:,:,mode)];
+        sigmma_P(:,:,mode) = Pr(mode,1)*P(:,:,1) + Pr(mode,2)*P(:,:,2) + Pr(mode,3)*P(:,:,3);  %计算按概率加权求和的P
+        K_u(:,:,mode) = inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))') ...
+            *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode))');
+        K_w(:,:,mode) = inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col+hat_F_col)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))) ...
+            *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))');
+        K(:,:,mode) = [eye(A_row+hat_A_row);K_u(:,:,mode);K_w(:,:,mode)];
     end
-    norm_P_H_1_episode(episode_H + 1) = log(trace(P_H(:,:,1)'*P_H(:,:,1)));
-    norm_P_H_2_episode(episode_H + 1) = log(trace(P_H(:,:,2)'*P_H(:,:,2)));
-    norm_P_H_3_episode(episode_H + 1) = log(trace(P_H(:,:,3)'*P_H(:,:,3)));
-    norm_K_H_1_episode(episode_H + 1) = log(trace(K_H(:,:,1)'*K_H(:,:,1)));
-    norm_K_H_2_episode(episode_H + 1) = log(trace(K_H(:,:,2)'*K_H(:,:,2)));
-    norm_K_H_3_episode(episode_H + 1) = log(trace(K_H(:,:,3)'*K_H(:,:,3)));
+    norm_P_1_episode(episode + 1) = log(trace(P(:,:,1)'*P(:,:,1)));
+    norm_P_2_episode(episode + 1) = log(trace(P(:,:,2)'*P(:,:,2)));
+    norm_P_3_episode(episode + 1) = log(trace(P(:,:,3)'*P(:,:,3)));
+    norm_K_1_episode(episode + 1) = log(trace(K(:,:,1)'*K(:,:,1)));
+    norm_K_2_episode(episode + 1) = log(trace(K(:,:,2)'*K(:,:,2)));
+    norm_K_3_episode(episode + 1) = log(trace(K(:,:,3)'*K(:,:,3)));
 end
 
 for mode = 1:modes %得到最终结果
-    sigmma_P_H(:,:,mode) = Pr(mode,1)*P_H(:,:,1)+Pr(mode,2)*P_H(:,:,2)+Pr(mode,3)*P_H(:,:,3);  %计算按概率加权求和的P
-    
-    K_u_H(:,:,mode) = inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))') ...
-        *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode))');
-    K_w_H(:,:,mode) = inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col+hat_F_col)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))) ...
-        *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))');
-    K_H(:,:,mode) = [eye(A_row+hat_A_row);K_u_H(:,:,mode);K_w_H(:,:,mode)];
-    
-    delta_H(:,:,mode) = P_H(:,:,mode) - tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode)-gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_A(:,:,mode)+[(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)) tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)]*inv([(gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)+R(mode)+D(mode)'*Q(:,:,mode)*D(mode)) (D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode));(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode))' (tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))])*[(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_B(:,:,mode)) tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_H(:,:,mode)*tilde_F(:,:,mode)]';
+    sigmma_P(:,:,mode) = Pr(mode,1)*P(:,:,1) + Pr(mode,2)*P(:,:,2) + Pr(mode,3)*P(:,:,3);  %计算按概率加权求和的P
+    K_u(:,:,mode) = inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))') ...
+        *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))*inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))*(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode))');
+    K_w(:,:,mode) = inv(tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col+hat_F_col)-(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))) ...
+        *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))');
+    K(:,:,mode) = [eye(A_row+hat_A_row);K_u(:,:,mode);K_w(:,:,mode)];
+    delta(:,:,mode) = P(:,:,mode) - tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode)-gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_A(:,:,mode)+[(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)) tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)]*inv([(gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)+R(mode)+D(mode)'*Q(:,:,mode)*D(mode)) (D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode));(D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode))' (tilde_H(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_F(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)-theta^(2)*eye(F_col + hat_F_col))])*[(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode)) tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_F(:,:,mode)]';
 end
 
-delta_H = trace(delta_H(:,:,1)'*delta_H(:,:,1)+delta_H(:,:,2)'*delta_H(:,:,2)+delta_H(:,:,3)'*delta_H(:,:,3))
+delta1 = trace(delta(:,:,1)'*delta(:,:,1)+delta(:,:,2)'*delta(:,:,2)+delta(:,:,3)'*delta(:,:,3))
 
-figure(2)
-plot(0:1:(episodes_H-1),norm_P_H_1_episode(1:episodes_H),'--','Color','b','LineWidth',1.5)
+sigmma_P_optimal = sigmma_P; %给定sigmma_P的最优值
+K_u_optimal = K_u; %给定控制器的最优值
+K_w_optimal = K_w; % 给定噪声增益K_w的最优值
+K_optimal = K;
+
+figure(1)
+plot(0:1:(episodes-1),norm_P_1_episode(1:episodes),'--','Color','b','LineWidth',1.5)
 hold on
-plot(0:1:(episodes_H-1),norm_P_H_2_episode(1:episodes_H),'-.','Color','r','LineWidth',1.5)
+plot(0:1:(episodes-1),norm_P_2_episode(1:episodes),'-.','Color','r','LineWidth',1.5)
 hold on
-plot(0:1:(episodes_H-1),norm_P_H_3_episode(1:episodes_H),'Color','g','LineWidth',1.5)
+plot(0:1:(episodes-1),norm_P_3_episode(1:episodes),'Color','g','LineWidth',1.5)
 legend('$log(\left\|P_{1}\right\|_{2})$','$log(\left\|P_{2}\right\|_{2})$','$log(\left\|P_{3}\right\|_{2})$','Interpreter','latex'); %legend在坐标区上添加图例
-axis([0 episodes_H-1 0 10.5]) %调整坐标轴范围 axis([x_min x_max y_min y_max])
+axis([0 episodes-1 0 10.5]) %调整坐标轴范围 axis([x_min x_max y_min y_max])
 xlabel('$Iteration$','interpreter','latex')
-xticks([0:(episodes_H-1)/10:episodes_H-1]) %设置 x 轴刻度值
+xticks([0:(episodes-1)/10:episodes-1]) %设置 x 轴刻度值
 ylabel('$log(\left\|P_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:1:10])
 set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 
-figure(3)
-plot(0:1:(episodes_H-1),norm_K_H_1_episode(1:episodes_H),'--','Color','b','LineWidth',1.5)
+figure(2)
+plot(0:1:(episodes-1),norm_K_1_episode(1:episodes),'--','Color','b','LineWidth',1.5)
 hold on
-plot(0:1:(episodes_H-1),norm_K_H_2_episode(1:episodes_H),'-.','Color','r','LineWidth',1.5)
+plot(0:1:(episodes-1),norm_K_2_episode(1:episodes),'-.','Color','r','LineWidth',1.5)
 hold on
-plot(0:1:(episodes_H-1),norm_K_H_3_episode(1:episodes_H),'Color','g','LineWidth',1.5)
+plot(0:1:(episodes-1),norm_K_3_episode(1:episodes),'Color','g','LineWidth',1.5)
 legend('$log(\left\|K_{1}\right\|_{2})$','$log(\left\|K_{2}\right\|_{2})$','$log(\left\|K_{3}\right\|_{2})$','Interpreter','latex');
-axis([0 episodes_H-1 0 9]) %调整坐标轴范围axis([x_min x_max y_min y_max])
+axis([0 episodes-1 0 9]) %调整坐标轴范围axis([x_min x_max y_min y_max])
 xlabel('$Iteration$','interpreter','latex')
-xticks([0:(episodes_H-1)/10:(episodes_H-1)])
+xticks([0:(episodes-1)/10:(episodes-1)])
 ylabel('$log(\left\|K_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:1:9])
 set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
-annotation(figure(3),'ellipse',[0.7015625 0.311320754716981 0.0427083333333333 0.0451215932914054]); % 创建 ellipse
-annotation(figure(3),'arrow',[0.7 0.646354166666667],[0.362683438155136 0.419287211740042]); % 创建 arrow
+annotation(figure(2),'ellipse',[0.7015625 0.311320754716981 0.0427083333333333 0.0451215932914054]); % 创建 ellipse
+annotation(figure(2),'arrow',[0.7 0.646354166666667],[0.362683438155136 0.419287211740042]); % 创建 arrow
 
 %% TP未知下求解H无穷控制器迭代参数
 sigmma_P_TD(:,:,:) = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
@@ -237,8 +241,8 @@ steps_TD = 100; %定义每一幕的步数
 mu = 0.95; %定义回报权重
 
 for mode = 1:modes
-    delta_sigmma_P_TD(1,mode,1) = log(1+(trace((sigmma_P_H(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P_H(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_H(:,:,mode)'*sigmma_P_H(:,:,mode))));
-    delta_K_TD(1,mode,1) = log(1+(trace((K_H(:,:,mode)-K_TD(:,:,mode))'*(K_H(:,:,mode)-K_TD(:,:,mode))))/(trace(K_H(:,:,mode)'*K_H(:,:,mode))));
+    delta_sigmma_P_TD(1,mode,1) = log(1+(trace((sigmma_P(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P(:,:,mode)'*sigmma_P(:,:,mode))));
+    delta_K_TD(1,mode,1) = log(1+(trace((K(:,:,mode)-K_TD(:,:,mode))'*(K(:,:,mode)-K_TD(:,:,mode))))/(trace(K(:,:,mode)'*K(:,:,mode))));
 end
 
 for episode_TD = 1:episodes_TD
@@ -279,8 +283,8 @@ for episode_TD = 1:episodes_TD
             *((D(mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))'*inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode))'-(tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_H(:,:,mode)+gamma*tilde_A(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_F(:,:,mode))');
     end
     for mode = 1:modes
-        delta_sigmma_P_TD(1,mode,episode_TD+1) = log(1 + (trace((sigmma_P_H(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P_H(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_H(:,:,mode)'*sigmma_P_H(:,:,mode))));
-        delta_K_TD(1,mode,episode_TD+1) = log(1 + (trace((K_H(:,:,mode)-K_TD(:,:,mode))'*(K_H(:,:,mode)-K_TD(:,:,mode))))/(trace(K_H(:,:,mode)'*K_H(:,:,mode))));
+        delta_sigmma_P_TD(1,mode,episode_TD+1) = log(1 + (trace((sigmma_P(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P(:,:,mode)'*sigmma_P(:,:,mode))));
+        delta_K_TD(1,mode,episode_TD+1) = log(1 + (trace((K(:,:,mode)-K_TD(:,:,mode))'*(K(:,:,mode)-K_TD(:,:,mode))))/(trace(K(:,:,mode)'*K(:,:,mode))));
     end
 end
 
@@ -678,7 +682,7 @@ for episode_test = 1:episodes_test
         %         tilde_w_TD(:,step_test) = K_w_H(:,:, mode_now)*tilde_x_TD(:,step_test);
         
         u_LQR(:,step_test) = K_u_LQR(:,:, mode_now)*estimate_tilde_x_LQR(:,step_test); %基于当前控制器给出反馈控制律
-        u_H(:,step_test) = K_u_H(:,:, mode_now)*estimate_tilde_x_H(:,step_test);
+        u_H(:,step_test) = K_u(:,:, mode_now)*estimate_tilde_x_H(:,step_test);
         u_TD(:,step_test) = K_u_TD(:,:, mode_now)*estimate_tilde_x_TD(:,step_test);
         
         %         u_LQR(:,step_test) = K_u_LQR(:,:, mode_now)*tilde_x_LQR(:,step_test); %基于当前控制器给出反馈控制律
