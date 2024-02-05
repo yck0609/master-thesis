@@ -195,7 +195,7 @@ delta_sigmma_P_TD = [0 0 0]; %用于储存sigmma_P距离最优的差值
 delta_S_TD = [0 0 0]; %用于储存K_u距离最优的差值
 
 episodes_TD = 51; %定义迭代的幕数
-steps_TD = 200; %定义每一幕的步数
+steps_TD = 100; %定义每一幕的步数
 mu = 0.10; %定义回报权重
 
 %% TP未知下求解H无穷控制器
@@ -295,7 +295,7 @@ u = zeros(1);
 z = [];
 
 % 被跟踪系统参数
-hat_x = [10 -10 0]'; 
+hat_x = [10 0 0]'; 
 hat_z = [hat_C*hat_x];
 
 % 增广系统参数
@@ -338,10 +338,10 @@ hold on
 plot(1:1:(steps_test),z_TD(1,1:steps_test),'-.','Color','g',"LineWidth",1)
 hold on
 plot(1:1:(steps_test),hat_z(1,1:steps_test),'Color','k',"LineWidth",1)
-legend('$z_H$','$z_{TD}$','$\hat{z}$','Interpreter','latex','Position',[0.756235532407406 0.445595077077051 0.125014467592594 0.147696327535109]);
+legend('$z$','$z_{TD}$','$\hat{z}$','Interpreter','latex','Position',[0.756235532407406 0.445595077077051 0.125014467592594 0.147696327535109]);
 xlabel('$Steps$','interpreter','latex')
 ylabel('$z$ and $\hat{z}$','interpreter','latex')
-axis([1 steps_test -10 6])
+axis([1 steps_test -2 13])
 xticks([0:10:steps_test])
-yticks([-10:2:6])
+yticks([-2:5:13])
 set(gca,"FontName","Times New Roman","FontSize",36,"LineWidth",0.5);
