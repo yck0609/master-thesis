@@ -89,9 +89,9 @@ episodes = 21; %给定迭代次数
 norm_P_1_episode(1) = trace(P(:,:,1)'*P(:,:,1));
 norm_P_2_episode(1) = trace(P(:,:,2)'*P(:,:,2));
 norm_P_3_episode(1) = trace(P(:,:,3)'*P(:,:,3));
-norm_S_1_episode(1) = trace(S_u(:,:,1)'*S_u(:,:,1));
-norm_S_2_episode(1) = trace(S_u(:,:,2)'*S_u(:,:,2));
-norm_S_3_episode(1) = trace(S_u(:,:,3)'*S_u(:,:,3));
+norm_S_1_episode(1) = trace(S(:,:,1)'*S(:,:,1));
+norm_S_2_episode(1) = trace(S(:,:,2)'*S(:,:,2));
+norm_S_3_episode(1) = trace(S(:,:,3)'*S(:,:,3));
 
 for episode = 1:episodes
     episode
@@ -154,11 +154,11 @@ hold on
 plot(0:1:(episodes-1),norm_P_3_episode(1:episodes),'Color','g','LineWidth',1.5)
 legend('$log(\left\|P_{1}\right\|_{2})$','$log(\left\|P_{2}\right\|_{2})$','$log(\left\|P_{3}\right\|_{2})$','Interpreter','latex'); %legend在坐标区上添加图例
 axis([0 episodes-1 0 200]) %调整坐标轴范围 axis([x_min x_max y_min y_max])
-xlabel('$Iteration$','interpreter','latex')
+xlabel('迭代','interpreter','latex')
 xticks([0:(episodes-1)/10:episodes-1]) %设置 x 轴刻度值
 ylabel('$log(\left\|P_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:20:200])
-set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
+set(gca,"FontName","宋体","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 
 figure(2)
 plot(0:1:(episodes-1),norm_S_1_episode(1:episodes),'--','Color','b','LineWidth',1.5)
@@ -166,13 +166,13 @@ hold on
 plot(0:1:(episodes-1),norm_S_2_episode(1:episodes),'-.','Color','r','LineWidth',1.5)
 hold on
 plot(0:1:(episodes-1),norm_S_3_episode(1:episodes),'Color','g','LineWidth',1.5)
-legend('$log(\left\|K_{1}\right\|_{2})$','$log(\left\|K_{2}\right\|_{2})$','$log(\left\|K_{3}\right\|_{2})$','Interpreter','latex');
+legend('$log(\left\|S_{1}\right\|_{2})$','$log(\left\|S_{2}\right\|_{2})$','$log(\left\|S_{3}\right\|_{2})$','Interpreter','latex');
 axis([0 episodes-1 0 9]) %调整坐标轴范围axis([x_min x_max y_min y_max])
-xlabel('$Iteration$','interpreter','latex')
+xlabel('迭代','interpreter','latex')
 xticks([0:(episodes-1)/10:(episodes-1)])
-ylabel('$log(\left\|K_{i}\right\|_{2})$','interpreter','latex')
+ylabel('$log(\left\|S_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:10:100])
-set(gca,"FontName","Times New Roman","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
+set(gca,"FontName","宋体","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 annotation(figure(2),'ellipse',[0.7015625 0.311320754716981 0.0427083333333333 0.0451215932914054]); % 创建 ellipse
 annotation(figure(2),'arrow',[0.7 0.646354166666667],[0.362683438155136 0.419287211740042]); % 创建 arrow
 
@@ -196,7 +196,7 @@ delta_S_TD = [0 0 0]; %用于储存K_u距离最优的差值
 
 episodes_TD = 51; %定义迭代的幕数
 steps_TD = 100; %定义每一幕的步数
-mu = 0.10; %定义回报权重
+lambda = 0.10; %定义回报权重
 
 %% TP未知下求解H无穷控制器
 for mode = 1:modes
@@ -208,7 +208,7 @@ end
 for episode_TD = 1:episodes_TD
     episode_TD
     
-    lambda = 1/(episode_TD); %更新步长
+    mu = 1/(episode_TD); %更新步长
     
     sigmma_V_TD = sigmma_P_TD;
     for mode = 1:modes
@@ -229,9 +229,9 @@ for episode_TD = 1:episodes_TD
             end
             
             TD = Lambda(:,:,mode)'*(Gamma_TD(:,:,mode_now)'*sigmma_V_TD(:,:,mode_now)*Gamma_TD(:,:,mode_now)+S_TD(:,:,mode_now)'*Upsilon_TD(:,:,mode_now)*S_TD(:,:,mode_now)-sigmma_V_TD(:,:,mode_old))*Lambda(:,:,mode);
-            TD_sum = TD_sum + mu^(step_test-1)*TD; %进行第step步的sigmma_P更新
+            TD_sum = TD_sum + lambda^(step_test-1)*TD; %进行第step步的sigmma_P更新
         end
-        sigmma_P_TD(:,:,mode) = sigmma_V_TD(:,:,mode) + lambda*TD_sum; %进行第step步的sigmma_P更新
+        sigmma_P_TD(:,:,mode) = sigmma_V_TD(:,:,mode) + mu*TD_sum; %进行第step步的sigmma_P更新
         S_u_TD(:,:,mode) = -inv(D(mode)'*Q(:,:,mode)*D(mode)+gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_B(:,:,mode)+R(mode))*(D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode) + gamma*tilde_B(:,:,mode)'*sigmma_P_TD(:,:,mode)*tilde_A(:,:,mode));
     end
     for mode = 1:modes
