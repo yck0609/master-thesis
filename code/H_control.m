@@ -603,6 +603,7 @@ z = zeros(C_row,1);
 y = zeros(E_row,1);
 tilde_x = [x' hat_x']'; % 增广系统参数
 estimate_tilde_x = 0*tilde_x;
+delta_x = tilde_x - estimate_tilde_x;
 tilde_w = zeros(F_col + hat_F_col,1);
 tilde_z = zeros(C_row,1);
 tilde_y = [y' hat_y']';
@@ -616,6 +617,7 @@ z_TD = zeros(C_row,1);
 y_TD = zeros(E_row,1);
 tilde_x_TD = [x_TD' hat_x']'; % 增广系统参数
 estimate_tilde_x_TD = 0*tilde_x_TD;
+delta_x_TD = tilde_x_TD - estimate_tilde_x_TD;
 tilde_w_TD = zeros(F_col + hat_F_col,1);
 tilde_z_TD = zeros(C_row,1);
 tilde_y_TD = [y_TD' hat_y']';
@@ -630,11 +632,11 @@ for step_test = 1:steps_test
     tilde_w(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
     tilde_w_TD(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
 
-    u(:,step_test) = K_u(:,:,mode_now)*estimate_tilde_x(:,step_test);
-    u_TD(:,step_test) = K_u_TD(:,:, mode_now)*estimate_tilde_x_TD(:,step_test);
+%     u(:,step_test) = K_u(:,:,mode_now)*estimate_tilde_x(:,step_test);
+%     u_TD(:,step_test) = K_u_TD(:,:, mode_now)*estimate_tilde_x_TD(:,step_test);
 %         
-%   u(:,step_test) = K_u(:,:,mode_now)*tilde_x(:,step_test);
-%   u_TD(:,step_test) = K_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
+    u(:,step_test) = K_u(:,:,mode_now)*tilde_x(:,step_test);
+    u_TD(:,step_test) = K_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
 
     tilde_y(:,step_test) = tilde_E(:,:,mode_now)*tilde_x(:,step_test) + tilde_G(:,:, mode_now)*tilde_w(:,step_test);
     tilde_y_TD(:,step_test) = tilde_E(:,:,mode_now)*tilde_x_TD(:,step_test) + tilde_G(:,:, mode_now)*tilde_w_TD(:,step_test);
@@ -651,6 +653,9 @@ for step_test = 1:steps_test
     estimate_tilde_x(:,step_test+1) = tilde_A(:,:,mode_now)*estimate_tilde_x(:,step_test) + tilde_B(:,:,mode_now)*u(:,step_test) - L_y(:,:, mode_now)*(tilde_y(:,step_test) - estimate_tilde_y(:,step_test));
     estimate_tilde_x_TD(:,step_test+1) = tilde_A(:,:,mode_now)*estimate_tilde_x_TD(:,step_test) + tilde_B(:,:,mode_now)*u_TD(:,step_test) - L_y_TD(:,:, mode_now)*(tilde_y_TD(:,step_test) - estimate_tilde_y_TD(:,step_test));
 
+    delta_x(:,step_test+1) = abs(tilde_x(:,step_test+1) - estimate_tilde_x(:,step_test+1));
+    delta_x_TD(:,step_test+1) = abs(tilde_x_TD(:,step_test+1) - estimate_tilde_x_TD(:,step_test+1));
+    
     z(:,step_test) = C(:,:, mode_now)*tilde_x(1:A_row,step_test) + D(mode_now)*u(:,step_test) + H(:,:, mode_now)*tilde_w(1:F_col,step_test);
     z_TD(:,step_test) = C(:,:, mode_now)*tilde_x_TD(1:A_row,step_test) + D(mode_now)*u_TD(:,step_test) + H(:,:, mode_now)*tilde_w_TD(1:F_col,step_test);
     hat_z(:,step_test) = hat_C*tilde_x(A_row+1:A_row+hat_A_row,step_test);
@@ -668,4 +673,16 @@ ylabel('系统输出')
 axis([1 steps_test -10 40])
 xticks([0:(steps_test)/10:steps_test])
 yticks([-10:10:40])
+set(gca,"FontName","宋体","FontSize",36,"LineWidth",0.5);
+
+figure(10)
+plot(1:1:(steps_test),delta_x(1,1:steps_test),'--','Color','r',"LineWidth",1)
+hold on
+plot(1:1:(steps_test),delta_x_TD(1,1:steps_test),'-.','Color','g',"LineWidth",1)
+legend('$\mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\smile$}}\over x}$','$\mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\smile$}}\over x}_{TD}$','Interpreter','latex','Position',[0.756235532407406 0.445595077077051 0.125014467592594 0.147696327535109]);
+xlabel('时刻')
+ylabel('系统输出')
+axis([1 steps_test -0.005 0.07])
+xticks([0:(steps_test)/10:steps_test])
+yticks([0:0.02:0.07])
 set(gca,"FontName","宋体","FontSize",36,"LineWidth",0.5);
