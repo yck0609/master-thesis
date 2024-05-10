@@ -16,11 +16,11 @@ F(:,:,1) = [0.20 0 0 0 0 0 0 0 0;0.20 0 0 0 0 0 0 0 0;0.20 0 0 0 0 0 0 0 0]; %被
 F(:,:,2) = [0.20 0 0 0 0 0 0 0 0;0.20 0 0 0 0 0 0 0 0;0.20 0 0 0 0 0 0 0 0];
 F(:,:,3) = [0.20 0 0 0 0 0 0 0 0;0.20 0 0 0 0 0 0 0 0;0.20 0 0 0 0 0 0 0 0];
 
-C(:,:,1) = [1.0230 2.1100 0.9500]; %被控系统输出方程输出矩阵
-C(:,:,2) = [0.9800 2.0500 1.1000];
-C(:,:,3) = [1.0000 2.0000 1.0500];
+C(:,:,1) = [1 0 0]; %被控系统输出方程输出矩阵
+C(:,:,2) = [1 0 0];
+C(:,:,3) = [1 0 0];
 
-D = [1.000 0.5000 -0.5000]; %被控系统输出方程控制输入增益矩阵
+D = [0 0 0]; %被控系统输出方程控制输入增益矩阵
 
 H(:,:,1) = [0 0 0 0 0 0 0 0.10 0.15]; %被控系统输出方程噪声增益矩阵
 H(:,:,2) = [0 0 0 0 0 0 0 0.10 0.15]; 
@@ -82,14 +82,14 @@ for mode=1:modes
 end
 
 %% 给定性能指标参数正定矩阵Q、R、衰减因子gamma
-Q(:,:,1) = 10*eye(C_row); %系统跟踪误差权重矩阵
-Q(:,:,2) = 10*eye(C_row);
-Q(:,:,3) = 10*eye(C_row);
+Q(:,:,1) = 50*eye(C_row); %系统跟踪误差权重矩阵
+Q(:,:,2) = 50*eye(C_row);
+Q(:,:,3) = 50*eye(C_row);
 
 R = 0.5*[1 1 1];  %系统控制输入权重矩阵
 
 gamma = 0.99;  %衰减因子gamma
-theta = 22.35; %H无穷控制L2增益
+theta = 39.35; %H无穷控制L2增益
 theta_filtering = 15; %H无穷滤波L2增益
 
 %% 控制器求解
@@ -100,7 +100,11 @@ sigmma_V = zeros(A_row + hat_A_row,A_row + hat_A_row,modes);
 
 K_u_initial(:,:,1) = [0.231  -0.850   0.050   0.050   0.050   0.050];
 K_u_initial(:,:,2) = [0.201  -1.502   0.100   0.050   0.000   0.100];
-K_u_initial(:,:,3) = [0.100  -0.998   0.100   0.150   0.130   0.120];
+K_u_initial(:,:,3) = [-0.2  -0.998   0.100   0.750   0.530   0.520];
+
+% val(:,:,1) = 0.095958859978307  -0.882415258798628                   0   0.163356577486867   0.147464580770676   0.161410587224241
+% val(:,:,2) = 0.154777256672149  -0.886430860305577                   0   0.101189736952215   0.089865902088982   0.102922701834377
+% val(:,:,3) = -0.683414032051104  -1.179468399046010                   0   1.184465046932468   1.065754091390902   1.167903253634194
 
 K_u = K_u_initial; % 将LQR控制器作为迭代初始值
 K_w(:,:,:) = zeros(F_col + hat_F_col,A_row+hat_A_row,modes);  % 给定噪声增益K_w的初始值
@@ -319,7 +323,7 @@ hold on
 plot(0:1:(episodes_TD-1),delta_sigmma_P3(1:episodes_TD),'Color','g',"LineWidth",1.5)
 legend('$\Delta^{(l)}_{1}$','$\Delta^{(l)}_{2}$','$\Delta^{(l)}_{3}$','Interpreter','latex','Position', ...
     [0.691145833333333 0.212788259958072 0.188194444444442 0.205170875242091]); %legend在坐标区上添加图例
-xlabel('迭代')
+xlabel('迭代次数')
 ylabel('$\Delta^{(l)}_{i}$','interpreter','latex')
 axis([0 episodes_TD-1 -0.05 0.7])
 xticks([0:(episodes_TD-1)/10:episodes_TD-1])
@@ -334,7 +338,7 @@ hold on
 plot(0:1:(episodes_TD-1),delta_K_TD_3(1:episodes_TD),'Color','g',"LineWidth",1.5)
 legend('$\delta^{(l)}_{1}$','$\delta^{(l)}_{2}$','$\delta^{(l)}_{3}$','Interpreter','latex','Position', ...
     [0.691145833333333 0.212788259958072 0.188194444444442 0.205170875242091]); %legend在坐标区上添加图例
-xlabel('迭代')
+xlabel('迭代次数')
 ylabel('$\delta^{(l)}_{i}$','interpreter','latex')
 axis([0 episodes_TD-1 -0.005 0.040])
 xticks([0:(episodes_TD-1)/10:episodes_TD-1])
@@ -452,11 +456,11 @@ hold on
 plot(0:1:(episodes_filtering-1),norm_L_2_episode(1:episodes_filtering),'-.','Color','r','LineWidth',1.5)
 hold on
 plot(0:1:(episodes_filtering-1),norm_L_3_episode(1:episodes_filtering),'Color','g','LineWidth',1.5)
-legend('$log(\left\|K_{1}\right\|_{2})$','$log(\left\|K_{2}\right\|_{2})$','$log(\left\|K_{3}\right\|_{2})$','Interpreter','latex');
+legend('$log(\left\|L_{1}\right\|_{2})$','$log(\left\|L_{2}\right\|_{2})$','$log(\left\|L_{3}\right\|_{2})$','Interpreter','latex');
 axis([0 episodes_filtering-1 0 9]) %调整坐标轴范围axis([x_min x_max y_min y_max])
 xlabel('迭代')
 xticks([0:(episodes_filtering-1)/10:(episodes_filtering-1)])
-ylabel('$log(\left\|K_{i}\right\|_{2})$','interpreter','latex')
+ylabel('$log(\left\|L_{i}\right\|_{2})$','interpreter','latex')
 yticks([0:1:9])
 set(gca,"FontName","宋体","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 annotation(figure(6),'ellipse',[0.7015625 0.311320754716981 0.0427083333333333 0.0451215932914054]); % 创建 ellipse
@@ -632,11 +636,11 @@ for step_test = 1:steps_test
     tilde_w(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
     tilde_w_TD(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
 
-%     u(:,step_test) = K_u(:,:,mode_now)*estimate_tilde_x(:,step_test);
-%     u_TD(:,step_test) = K_u_TD(:,:, mode_now)*estimate_tilde_x_TD(:,step_test);
+    u(:,step_test) = K_u(:,:,mode_now)*estimate_tilde_x(:,step_test);
+    u_TD(:,step_test) = K_u_TD(:,:, mode_now)*estimate_tilde_x_TD(:,step_test);
 %         
-    u(:,step_test) = K_u(:,:,mode_now)*tilde_x(:,step_test);
-    u_TD(:,step_test) = K_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
+%     u(:,step_test) = K_u(:,:,mode_now)*tilde_x(:,step_test);
+%     u_TD(:,step_test) = K_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
 
     tilde_y(:,step_test) = tilde_E(:,:,mode_now)*tilde_x(:,step_test) + tilde_G(:,:, mode_now)*tilde_w(:,step_test);
     tilde_y_TD(:,step_test) = tilde_E(:,:,mode_now)*tilde_x_TD(:,step_test) + tilde_G(:,:, mode_now)*tilde_w_TD(:,step_test);
@@ -668,7 +672,7 @@ plot(1:1:(steps_test),z_TD(1,1:steps_test),'-.','Color','g',"LineWidth",1)
 hold on
 plot(1:1:(steps_test),hat_z(1,1:steps_test),'Color','k',"LineWidth",1)
 legend('$z$','$z_{TD}$','$\hat{z}$','Interpreter','latex','Position',[0.756235532407406 0.445595077077051 0.125014467592594 0.147696327535109]);
-xlabel('时刻')
+xlabel('时间')
 ylabel('系统输出')
 axis([1 steps_test -10 40])
 xticks([0:(steps_test)/10:steps_test])
@@ -680,7 +684,7 @@ plot(1:1:(steps_test),delta_x(1,1:steps_test),'--','Color','r',"LineWidth",1)
 hold on
 plot(1:1:(steps_test),delta_x_TD(1,1:steps_test),'-.','Color','g',"LineWidth",1)
 legend('$\mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\smile$}}\over x}$','$\mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\smile$}}\over x}_{TD}$','Interpreter','latex','Position',[0.756235532407406 0.445595077077051 0.125014467592594 0.147696327535109]);
-xlabel('时刻')
+xlabel('时间')
 ylabel('系统输出')
 axis([1 steps_test -0.005 0.07])
 xticks([0:(steps_test)/10:steps_test])

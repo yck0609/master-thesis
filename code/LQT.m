@@ -12,11 +12,11 @@ B(:,:,1) = [5.8705 15.5010 0]'; %被控系统状态方程控制输入增益矩阵
 B(:,:,2) = [10.2851 2.2282 0]';
 B(:,:,3) = [0.7874 1.5302 0]';
 
-C(:,:,1) = [1.0230 2.1100 0.9500]; %被控系统输出方程输出矩阵
-C(:,:,2) = [0.9800 2.0500 1.1000];
-C(:,:,3) = [1.0000 2.0000 1.0500];
+C(:,:,1) = [1 0 0]; %被控系统输出方程输出矩阵
+C(:,:,2) = [1 0 0];
+C(:,:,3) = [1 0 0];
 
-D = [1.000 0.5000 -0.5000]; %被控系统输出方程控制输入增益矩阵
+D = [0 0 0]; %被控系统输出方程控制输入增益矩阵
 
 Pr(:,:) = [0.95 0.05 0;0.36 0.6 0.04;0.1 0.1 0.8]; % 被控系统模态转移概率
 
@@ -37,9 +37,9 @@ hat_C = [1 1 1]; %被跟踪系统状态方程噪声增益矩阵
 [C_row,~] = size(C(:,:,1));  %获取被控系统输出的维数
 [hat_A_row,~] = size(hat_A); %获取被跟踪系统状态的维数
 
-Q(:,:,1) = 10*eye(C_row); %系统跟踪误差权重矩阵
-Q(:,:,2) = 10*eye(C_row);
-Q(:,:,3) = 10*eye(C_row);
+Q(:,:,1) = 50*eye(C_row); %系统跟踪误差权重矩阵
+Q(:,:,2) = 50*eye(C_row);
+Q(:,:,3) = 50*eye(C_row);
 
 R = 0.5*[1 1 1];  %系统控制输入权重矩阵
 
@@ -57,9 +57,18 @@ P = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); % 给定解的初始值
 sigmma_P = zeros(A_row + hat_A_row,A_row + hat_A_row,modes); %定义按概率加权求和矩阵
 sigmma_V = zeros(A_row + hat_A_row,A_row + hat_A_row,modes);
 
+% S_u_initial(:,:,1) = [0.250  -0.850   0.050   0.050   0.050   0.050];
+% S_u_initial(:,:,2) = [0.201  -1.502   0.100   0.100   0.000   0.100];
+% S_u_initial(:,:,3) = [0.100  -0.998   0.100   0.100   0.100   0.100];
+
 S_u_initial(:,:,1) = [0.250  -0.850   0.050   0.050   0.050   0.050];
 S_u_initial(:,:,2) = [0.201  -1.502   0.100   0.100   0.000   0.100];
-S_u_initial(:,:,3) = [0.100  -0.998   0.100   0.100   0.100   0.100];
+S_u_initial(:,:,3) = [0.100  -0.998   1.100   1.100   1.100   1.100];
+
+% val(:,:,1) = 0.095958859978307  -0.882415258798628                   0   0.163356577486867   0.147464580770676   0.161410587224241
+% val(:,:,2) = 0.154777256672149  -0.886430860305577                   0   0.101189736952215   0.089865902088982   0.102922701834377
+% val(:,:,3) = -0.683414032051104  -1.179468399046010                   0   1.184465046932468   1.065754091390902   1.167903253634194
+
 
 S_u = S_u_initial; % 将LQR控制器作为迭代初始值
 
@@ -85,7 +94,7 @@ Upsilon = zeros(A_row+hat_A_row+B_col,A_row+hat_A_row+B_col,modes);
 
 episodes = 21; %给定迭代次数
 
-%% 求解H无穷控制器
+%% 求解LQT控制器
 norm_P_1_episode(1) = trace(P(:,:,1)'*P(:,:,1));
 norm_P_2_episode(1) = trace(P(:,:,2)'*P(:,:,2));
 norm_P_3_episode(1) = trace(P(:,:,3)'*P(:,:,3));
@@ -95,7 +104,7 @@ norm_S_3_episode(1) = trace(S(:,:,3)'*S(:,:,3));
 
 for episode = 1:episodes
     episode
-    for mode = 1:modes %基于K_u以及K_w求解P
+    for mode = 1:modes
         Gamma(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*S_u(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
         Upsilon(:,:,mode) = [tilde_C(:,:,mode)'*Q(:,:,mode)*tilde_C(:,:,mode) tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode); D(mode)'*Q(:,:,mode)*tilde_C(:,:,mode) D(mode)'*Q(:,:,mode)*D(mode)+R(mode)];
         S_episode(:,:,mode) = [eye(A_row+hat_A_row);S_u(:,:,mode)];
@@ -103,7 +112,7 @@ for episode = 1:episodes
     
     n = 1;
     V = zeros(A_row+hat_A_row,A_row+hat_A_row,modes);
-    while n < 150  %进行耦合Lyapunov方程的求解
+    while n < 100  %进行耦合Lyapunov方程的求解
         for mode = 1:modes   %对三个模态进行迭代求解
             sigmma_V(:,:,mode) = Pr(mode,1)*V(:,:,1) + Pr(mode,2)*V(:,:,2) + Pr(mode,3)*V(:,:,3); %计算按概率加权求和的P
             V(:,:,mode) = Gamma(:,:,mode)'*sigmma_V(:,:,mode)*Gamma(:,:,mode) + S_episode(:,:,mode)'*Upsilon(:,:,mode)*S_episode(:,:,mode);  % 迭代求解P
@@ -113,14 +122,14 @@ for episode = 1:episodes
     end
     P = V;
     
-    for mode = 1:modes %基于求解的P更新K_u以及K_w
+    for mode = 1:modes
         sigmma_P(:,:,mode) = Pr(mode,1)*P(:,:,1) + Pr(mode,2)*P(:,:,2) + Pr(mode,3)*P(:,:,3);  %计算按概率加权求和的P
         
         S_u(:,:,mode) = -inv(D(mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_B(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode) + R(mode))*(tilde_C(:,:,mode)'*Q(:,:,mode)*D(mode) + gamma*tilde_A(:,:,mode)'*sigmma_P(:,:,mode)*tilde_B(:,:,mode))';
         S(:,:,mode) = [eye(A_row+hat_A_row);S_u(:,:,mode)];
     end
     P_episode(:,:,:,episode+1) = P;  %更新求解的P
-    S_episode(:,:,:,episode+1) = S;  %更新求解的P
+    S_episode(:,:,:,episode+1) = S;
     
     norm_P_1_episode(episode+1) = log(trace(P(:,:,1)'*P(:,:,1)));
     norm_P_2_episode(episode+1) = log(trace(P(:,:,2)'*P(:,:,2)));
@@ -153,11 +162,11 @@ plot(0:1:(episodes-1),norm_P_2_episode(1:episodes),'-.','Color','r','LineWidth',
 hold on
 plot(0:1:(episodes-1),norm_P_3_episode(1:episodes),'Color','g','LineWidth',1.5)
 legend('$log(\left\|P_{1}\right\|_{2})$','$log(\left\|P_{2}\right\|_{2})$','$log(\left\|P_{3}\right\|_{2})$','Interpreter','latex'); %legend在坐标区上添加图例
-axis([0 episodes-1 0 200]) %调整坐标轴范围 axis([x_min x_max y_min y_max])
+axis([0 episodes-1 0 100]) %调整坐标轴范围 axis([x_min x_max y_min y_max])
 xlabel('迭代','interpreter','latex')
 xticks([0:(episodes-1)/10:episodes-1]) %设置 x 轴刻度值
 ylabel('$log(\left\|P_{i}\right\|_{2})$','interpreter','latex')
-yticks([0:20:200])
+yticks([0:20:100])
 set(gca,"FontName","宋体","FontSize",42,"LineWidth",0.5); %设置坐标轴字体为Times New Roman，大小为26，线宽0.5
 
 figure(2)
@@ -196,9 +205,9 @@ delta_S_TD = [0 0 0]; %用于储存K_u距离最优的差值
 
 episodes_TD = 51; %定义迭代的幕数
 steps_TD = 100; %定义每一幕的步数
-lambda = 0.10; %定义回报权重
+lambda = 0.05; %定义回报权重
 
-%% TP未知下求解H无穷控制器
+%% TP未知下求解LQT控制器
 for mode = 1:modes
     Gamma_TD(:,:,mode) = sqrt(gamma)*(tilde_A(:,:,mode) + tilde_B(:,:,mode)*S_u_TD(:,:,mode));  %记录这一幕各个模态的A_tilde(:,:,m)+B_tilde(:,:,m)*K(:,:,m);
     delta_sigmma_P_TD(1,mode) = log(1+(trace((sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))'*(sigmma_P_optimal(:,:,mode)-sigmma_P_TD(:,:,mode))))/(trace(sigmma_P_optimal(:,:,mode)'*sigmma_P_optimal(:,:,mode))));
