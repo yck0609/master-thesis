@@ -634,13 +634,13 @@ for step_test = 1:steps_test
     mode_now = randsrc(1,1,[1 2 3;Pr(mode_old,:)]); %基于转移概率更新模态
 
     tilde_w(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
-    tilde_w_TD(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
+    tilde_w_TD(:,step_test) = normrnd(0,0.01,[F_col + hat_F_col 1]);
 
     u(:,step_test) = K_u(:,:,mode_now)*estimate_tilde_x(:,step_test);
     u_TD(:,step_test) = K_u_TD(:,:, mode_now)*estimate_tilde_x_TD(:,step_test);
 %         
-%     u(:,step_test) = K_u(:,:,mode_now)*tilde_x(:,step_test);
-%     u_TD(:,step_test) = K_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
+    % u(:,step_test) = K_u(:,:,mode_now)*tilde_x(:,step_test);
+    % u_TD(:,step_test) = K_u_TD(:,:, mode_now)*tilde_x_TD(:,step_test);
 
     tilde_y(:,step_test) = tilde_E(:,:,mode_now)*tilde_x(:,step_test) + tilde_G(:,:, mode_now)*tilde_w(:,step_test);
     tilde_y_TD(:,step_test) = tilde_E(:,:,mode_now)*tilde_x_TD(:,step_test) + tilde_G(:,:, mode_now)*tilde_w_TD(:,step_test);
