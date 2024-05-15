@@ -633,7 +633,7 @@ for step_test = 1:steps_test
     mode_old = mode_now; %储存当前模态
     mode_now = randsrc(1,1,[1 2 3;Pr(mode_old,:)]); %基于转移概率更新模态
 
-    tilde_w(:,step_test) = normrnd(0,0.005,[F_col + hat_F_col 1]);
+    tilde_w(:,step_test) = normrnd(0,0.01,[F_col + hat_F_col 1]);
     tilde_w_TD(:,step_test) = normrnd(0,0.01,[F_col + hat_F_col 1]);
 
     u(:,step_test) = K_u(:,:,mode_now)*estimate_tilde_x(:,step_test);
